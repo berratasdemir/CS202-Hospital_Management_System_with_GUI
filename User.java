@@ -10,7 +10,7 @@ public class User {
     private String password;
     private String userType;
 
-    private Connection connection;
+    Connection connection;
 
     public User(int userID, String email, String firstName, String lastName, String password, String userType) {
         this.userID = userID;

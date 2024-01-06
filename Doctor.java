@@ -14,7 +14,18 @@ public class Doctor extends User {
                 System.out.println("Connected to the database!");
 
                 // Creating a Doctor instance for testing
-                Doctor doctor = new Doctor(1, "doctor@email.com", "John", "Doe", "password", "Doctor", 13, "Cardiology");
+                Doctor doctor = new Doctor(
+                        connection, 14, "proberra34@email.com", "Berra", "Taşdemir", "ProBerra34", "Doctor",
+                        14, "Cardiology" // Doctor-specific attributes
+                );
+
+
+                // Adding the user details using the inherited addUser method
+                doctor.addUser(doctor);
+
+                // Adding doctor-specific details to the database
+                doctor.addDoctorDetailsToDB();
+
 
                 // Testing listRoomAvailability method
                 List<Room> availableRooms = doctor.listRoomAvailability();
@@ -40,9 +51,10 @@ public class Doctor extends User {
     private int doctorID;
     private String expertise;
 
-    public Doctor(int userID, String email, String firstName, String lastName, String password, String userType,
+    public Doctor(Connection connection, int userID, String email, String firstName, String lastName, String password, String userType,
                   int doctorID, String expertise) {
         super(userID, email, firstName, lastName, password, userType);
+        this.connection = connection; // Initialize connection in Doctor class
         this.doctorID = doctorID;
         this.expertise = expertise;
     }
@@ -61,6 +73,32 @@ public class Doctor extends User {
 
     public void setExpertise(String expertise) {
         this.expertise = expertise;
+    }
+
+    public void addDoctorDetailsToDB() {
+        String url = "jdbc:mysql://localhost:3306/cs202project";
+        String user = "root";
+        String password = "Ccs2002pwxyz"; // Replace with your database password
+
+        try (Connection connection = DriverManager.getConnection(url, user, password)) {
+            if (connection != null) {
+                String sql = "INSERT INTO Doctor (DoctorID, expertise, UserID) VALUES (?, ?, ?)";
+                try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+                    preparedStatement.setInt(1, this.doctorID);
+                    preparedStatement.setString(2, this.expertise);
+                    preparedStatement.setInt(3, this.getUserID()); // Assuming getUserID() method exists in the User class
+
+                    preparedStatement.executeUpdate();
+                    System.out.println("Doctor details added to the database!");
+                } catch (SQLException e) {
+                    e.printStackTrace(); // Handle the exception appropriately
+                }
+            } else {
+                System.out.println("Failed to make a connection!");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(); // Handle the exception appropriately
+        }
     }
 
     public List<Room> listRoomAvailability() {
