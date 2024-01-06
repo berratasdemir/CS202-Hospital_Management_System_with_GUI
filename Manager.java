@@ -17,7 +17,7 @@ public class Manager extends User {
     public static void main(String[] args) throws SQLException {
         String url = "jdbc:mysql://localhost:3306/cs202project";
         String user = "root";
-        String password = "Ccs2002pwxyz";
+        String password = "B89.e637";
 
         Manager manager = new Manager(20, "manager@email.com", "Can", "Sevgican", "pw", "Manager", 20);
 
@@ -180,7 +180,7 @@ public class Manager extends User {
     private static Connection getConnection() throws SQLException {
         String url = "jdbc:mysql://localhost:3306/cs202project"; // Update with your database URL
         String user = "root"; // Replace with your database username
-        String password = "Ccs2002pwxyz"; // Replace with your database password
+        String password = "B89.e637"; // Replace with your database password
 
         return DriverManager.getConnection(url, user, password);
     }

@@ -116,6 +116,24 @@ public class User {
                 resultSet.getString("userType")
         );
     }
+    public static boolean signIn(String email, String password) {
+        String sql = "SELECT * FROM User WHERE email = ? AND password = ?";
+        boolean isAuthenticated = false;
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setString(1, email);
+            preparedStatement.setString(2, password);
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                // If resultSet has at least one row, authentication is successful
+                isAuthenticated = resultSet.next();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(); // Handle the exception appropriately
+        }
+
+        return isAuthenticated;
+    }
 
     public int getUserID() {
         return userID;
