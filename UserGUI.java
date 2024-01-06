@@ -74,7 +74,17 @@ public class UserGUI extends JFrame {
         String userType = userTypeField.getText();
 
         User newUser = new User(userID, email, firstName, lastName, password, userType);
-        user.addUser(newUser);
+
+        // Open a new window based on the user type
+        if ("doctor".equalsIgnoreCase(userType)) {
+            openDoctorScreen(newUser);
+        } else if ("patient".equalsIgnoreCase(userType)) {
+            openPatientScreen(newUser);
+        } else if ("nurse".equalsIgnoreCase(userType)) {
+            openNurseScreen(newUser);
+        } else {
+            JOptionPane.showMessageDialog(this, "Invalid user type!");
+        }
 
         // Optionally, you can display a success message or update the UI
         JOptionPane.showMessageDialog(this, "User added successfully!");
@@ -92,14 +102,143 @@ public class UserGUI extends JFrame {
         userTypeField.setText("");
     }
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
+    private void openDoctorScreen(User newUser) {
+        JFrame doctorFrame = new JFrame("Doctor Information");
+        doctorFrame.setSize(400, 300);
+        doctorFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+        JPanel doctorPanel = new JPanel();
+        doctorPanel.setLayout(new GridLayout(5, 2));
+
+        JTextField doctorIDField = new JTextField();
+        JTextField expertiseField = new JTextField();
+
+        doctorPanel.add(new JLabel("Doctor ID:"));
+        doctorPanel.add(doctorIDField);
+        doctorPanel.add(new JLabel("Expertise:"));
+        doctorPanel.add(expertiseField);
+
+        JButton saveButton = new JButton("Save Doctor Information");
+        saveButton.addActionListener(new ActionListener() {
             @Override
-            public void run() {
-                new UserGUI();
+            public void actionPerformed(ActionEvent e) {
+                int doctorID = Integer.parseInt(doctorIDField.getText());
+                String expertise = expertiseField.getText();
+
+                // Create a new Doctor instance with the additional information
+                Doctor newDoctor = new Doctor(connection, newUser.getUserID(), newUser.getEmail(),
+                        newUser.getFirstName(), newUser.getLastName(), newUser.getPassword(),
+                        newUser.getUserType(), doctorID, expertise);
+
+                // Add the user and doctor details to the database
+                newDoctor.addUser(newDoctor);
+                newDoctor.addDoctorDetailsToDB();
+
+                // Optionally, you can display a success message or update the UI
+                JOptionPane.showMessageDialog(doctorFrame, "Doctor information saved successfully!");
+
+                // Close the Doctor screen
+                doctorFrame.dispose();
             }
         });
+
+        doctorPanel.add(saveButton);
+
+        doctorFrame.add(doctorPanel);
+        doctorFrame.setVisible(true);
     }
+
+    private void openPatientScreen(User newUser) {
+        JFrame patientFrame = new JFrame("Patient Information");
+        patientFrame.setSize(400, 300);
+        patientFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+        JPanel patientPanel = new JPanel();
+        patientPanel.setLayout(new GridLayout(5, 2));
+
+        JTextField patientIDField = new JTextField();
+        JTextField medicalHistoryField = new JTextField();
+
+        patientPanel.add(new JLabel("Patient ID:"));
+        patientPanel.add(patientIDField);
+        patientPanel.add(new JLabel("Medical History:"));
+        patientPanel.add(medicalHistoryField);
+
+        JButton saveButton = new JButton("Save Patient Information");
+        saveButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int patientID = Integer.parseInt(patientIDField.getText());
+                String medicalHistory = medicalHistoryField.getText();
+
+                // Create a new Patient instance with the additional information
+                Patient newPatient = new Patient(newUser.getUserID(), newUser.getEmail(),
+                        newUser.getFirstName(), newUser.getLastName(), newUser.getPassword(),
+                        newUser.getUserType(), patientID, medicalHistory);
+
+                // Add the user details to the database
+                newPatient.addUser(newPatient);
+
+                // Optionally, you can display a success message or update the UI
+                JOptionPane.showMessageDialog(patientFrame, "Patient information saved successfully!");
+
+                // Close the Patient screen
+                patientFrame.dispose();
+            }
+        });
+
+        patientPanel.add(saveButton);
+
+        patientFrame.add(patientPanel);
+        patientFrame.setVisible(true);
+    }
+
+    private void openNurseScreen(User newUser) {
+        JFrame nurseFrame = new JFrame("Nurse Information");
+        nurseFrame.setSize(400, 300);
+        nurseFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+        JPanel nursePanel = new JPanel();
+        nursePanel.setLayout(new GridLayout(5, 2));
+
+        JTextField nurseIDField = new JTextField();
+        JTextField departmentField = new JTextField();
+
+        nursePanel.add(new JLabel("Nurse ID:"));
+        nursePanel.add(nurseIDField);
+        nursePanel.add(new JLabel("Department:"));
+        nursePanel.add(departmentField);
+
+        JButton saveButton = new JButton("Save Nurse Information");
+        saveButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int nurseID = Integer.parseInt(nurseIDField.getText());
+                String department = departmentField.getText();
+
+                // Create a new Nurse instance with the additional information
+                Nurse newNurse = new Nurse(connection, newUser.getUserID(), newUser.getEmail(),
+                        newUser.getFirstName(), newUser.getLastName(), newUser.getPassword(),
+                        newUser.getUserType(), nurseID, department);
+
+                // Add the user and nurse details to the database
+                newNurse.addUser(newNurse);
+                newNurse.addNurseDetailsToDB();
+
+                // Optionally, you can display a success message or update the UI
+                JOptionPane.showMessageDialog(nurseFrame, "Nurse information saved successfully!");
+
+                // Close the Nurse screen
+                nurseFrame.dispose();
+            }
+        });
+
+        nursePanel.add(saveButton);
+
+        nurseFrame.add(nursePanel);
+        nurseFrame.setVisible(true);
+    }
+
     private Connection establishConnection() {
         Connection connection = null;
         String url = "jdbc:mysql://localhost:3306/cs202project";
@@ -120,5 +259,12 @@ public class UserGUI extends JFrame {
         return connection;
     }
 
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                new UserGUI();
+            }
+        });
+    }
 }
-

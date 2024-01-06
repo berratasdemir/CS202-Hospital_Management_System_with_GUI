@@ -19,7 +19,7 @@ public class Nurse extends User {
     public static void main(String[] args) {
         String url = "jdbc:mysql://localhost:3306/cs202project";
         String user = "root";
-        String password = "Ccs2002pwxyz"; // Change this to your actual database password
+        String password = "B89.e637"; // Change this to your actual database password
 
         try (Connection connection = DriverManager.getConnection(url, user, password)) {
             if (connection != null) {
@@ -56,7 +56,7 @@ public class Nurse extends User {
     public void addNurseDetailsToDB() {
         String url = "jdbc:mysql://localhost:3306/cs202project";
         String user = "root";
-        String password = "Ccs2002pwxyz"; // Replace with your database password
+        String password = "B89.e637"; // Replace with your database password
 
         try (Connection connection = DriverManager.getConnection(url, user, password)) {
             if (connection != null) {
@@ -98,7 +98,7 @@ public class Nurse extends User {
     // Method to view room availability without patient information
     public List<Room> viewRoomAvailability() {
         List<Room> availableRooms = new ArrayList<>();
-        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/cs202project", "root", "Ccs2002pwxyz")) {
+        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/cs202project", "root", "B89.e637")) {
             String sql = "SELECT * FROM Room WHERE Availability = 1";
             try (PreparedStatement stmt = conn.prepareStatement(sql)) {
                 ResultSet rs = stmt.executeQuery();
@@ -121,7 +121,7 @@ public class Nurse extends User {
     // Method to view upcoming assigned rooms without patient information
     public List<Room> viewUpcomingAssignedRooms() {
         List<Room> assignedRooms = new ArrayList<>();
-        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/cs202project", "root", "Ccs2002pwxyz")) {
+        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/cs202project", "root", "B89.e637")) {
             String sql = "SELECT Room.RoomID, Room.RoomType, Room.Availability " +
                     "FROM Room " +
                     "JOIN RoomAssignment ON Room.RoomID = RoomAssignment.RoomID " +
