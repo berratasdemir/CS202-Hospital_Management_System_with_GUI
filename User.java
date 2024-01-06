@@ -165,4 +165,9 @@ public class User {
     public void setUserType(String userType) {
         this.userType = userType;
     }
+
+    public void setConnection(Connection connection) {
+        this.connection = connection;
+    }
+
 }
