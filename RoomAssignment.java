@@ -7,6 +7,9 @@ public class RoomAssignment {
         this.availability = availability;
     }
 
+    public RoomAssignment(Appointment appointment, Room room, Doctor doctor, Nurse nurse) {
+    }
+
     public int getRoomAssignmentID() {
         return roomAssignmentID;
     }
@@ -21,6 +24,9 @@ public class RoomAssignment {
 
     public void setAvailability(boolean availability) {
         this.availability = availability;
+    }
+
+    public void saveToDatabase() {
     }
 }
 

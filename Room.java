@@ -32,5 +32,10 @@ public class Room {
     public void setAvailability(boolean availability) {
         this.availability = availability;
     }
+
+    @Override
+    public String toString() {
+        return "Room ID: " + roomID + ", Room Type: " + roomType + ", Availability: " + (availability ? "Available" : "Not Available");
+    }
 }
 
