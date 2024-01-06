@@ -134,7 +134,7 @@ public class Doctor extends User {
             if (rowsAffected > 0) {
                 // Create room assignment record
                 RoomAssignment roomAssignment = new RoomAssignment(appointment, room, this, nurse);
-                roomAssignment.saveToDatabase(); // Assuming a method to save RoomAssignment to the database
+                roomAssignment.saveToDatabase(conn); // Assuming a method to save RoomAssignment to the database
             } else {
                 // Appointment update failed, handle accordingly
             }
