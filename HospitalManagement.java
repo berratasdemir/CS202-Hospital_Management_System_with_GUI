@@ -8,14 +8,14 @@ public class HospitalManagement {
     public static void main(String[] args) {
         String url = "jdbc:mysql://localhost:3306/cs202project";
         String user = "root";
-        String password = "B89.e637";
+        String password = "Ccs2002brs";
 
 
 
         try (Connection connection = DriverManager.getConnection(url, user, password)) {
             if (connection != null) {
                 System.out.println("Connected to the database!");
-
+                DoctorSchedule doctorSchedule = new DoctorSchedule(connection);
 
 
                 Patient patient = new Patient(
