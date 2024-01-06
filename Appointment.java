@@ -11,6 +11,7 @@ public class Appointment {
     private int appointmentID;
     private LocalDateTime dateTime;
     private String status;
+    private int doctorID;
 
     private Connection connection;
 
@@ -40,6 +41,12 @@ public class Appointment {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+    public void setAppointmentID(int appointmentID) {
+        this.appointmentID=appointmentID;
+    }
+    public void setDoctorID(int doctorID) {
+        this.doctorID = doctorID;
     }
 
     // Method to add a new appointment
@@ -132,6 +139,9 @@ public class Appointment {
                 resultSet.getString("Status")
         );
     }
+
+
+
 
     // Getter and Setter methods (similar to your existing code)
 }
