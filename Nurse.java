@@ -1,6 +1,8 @@
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.time.LocalDateTime;
+
 
 public class Nurse extends User {
     private int nurseID;
@@ -17,7 +19,7 @@ public class Nurse extends User {
     public static void main(String[] args) {
         String url = "jdbc:mysql://localhost:3306/cs202project";
         String user = "root";
-        String password = "your_password"; // Change this to your actual database password
+        String password = "Ccs2002pwxyz"; // Change this to your actual database password
 
         try (Connection connection = DriverManager.getConnection(url, user, password)) {
             if (connection != null) {
@@ -25,12 +27,13 @@ public class Nurse extends User {
 
                 // Creating a Nurse instance for testing
                 Nurse nurse = new Nurse(
-                        connection, 10, "nurse@example.com", "Jane", "Doe", "nurse_password", "Nurse",
-                        10, "Cardiology" // Nurse-specific attributes
+                        connection, 7, "farni2@creativecommons.org", "Kalli", "Beauvais", "yJ6%ttezw#", "Nurse",
+                        7, "Pediatrics" // Nurse-specific attributes
                 );
 
-                // Adding the user details using the inherited addUser method
+               /* // Adding the user details using the inherited addUser method
                 nurse.addUser(nurse);
+                nurse.addNurseDetailsToDB();*/
 
                 // Testing viewUpcomingAssignedRooms method
                 List<Room> assignedRooms = nurse.viewUpcomingAssignedRooms();
@@ -47,6 +50,32 @@ public class Nurse extends User {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+    }
+
+    public void addNurseDetailsToDB() {
+        String url = "jdbc:mysql://localhost:3306/cs202project";
+        String user = "root";
+        String password = "Ccs2002pwxyz"; // Replace with your database password
+
+        try (Connection connection = DriverManager.getConnection(url, user, password)) {
+            if (connection != null) {
+                String sql = "INSERT INTO Nurse (NurseID, department, UserID) VALUES (?, ?, ?)";
+                try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+                    preparedStatement.setInt(1, this.nurseID);
+                    preparedStatement.setString(2, this.department);
+                    preparedStatement.setInt(3, this.getUserID()); // Assuming getUserID() method exists in the User class
+
+                    preparedStatement.executeUpdate();
+                    System.out.println("Nurse details added to the database!");
+                } catch (SQLException e) {
+                    e.printStackTrace(); // Handle the exception appropriately
+                }
+            } else {
+                System.out.println("Failed to make a connection!");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(); // Handle the exception appropriately
         }
     }
 
@@ -97,11 +126,19 @@ public class Nurse extends User {
                     "FROM Room " +
                     "JOIN RoomAssignment ON Room.RoomID = RoomAssignment.RoomID " +
                     "JOIN Nurse ON Nurse.NurseID = RoomAssignment.NurseID " +
+                    "JOIN Appointment ON RoomAssignment.AppointmentID = Appointment.AppointmentID " +
                     "WHERE RoomAssignment.Availability = 1 AND RoomAssignment.NurseID = ? " +
-                    "AND Appointment.DateTime > NOW()";
+                    "AND Appointment.DateTime > ?"; // Parameterized query
 
             try (PreparedStatement stmt = conn.prepareStatement(sql)) {
                 stmt.setInt(1, this.nurseID); // Assuming nurseID is accessible within the Nurse object
+
+                // Get the current date and time in Java
+                LocalDateTime currentDateTime = LocalDateTime.now();
+                // Convert LocalDateTime to java.sql.Timestamp for SQL query
+                Timestamp timestamp = Timestamp.valueOf(currentDateTime);
+
+                stmt.setTimestamp(2, timestamp); // Set the current timestamp as a parameter
 
                 ResultSet rs = stmt.executeQuery();
                 while (rs.next()) {

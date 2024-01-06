@@ -15,8 +15,8 @@ public class Doctor extends User {
 
                 // Creating a Doctor instance for testing
                 Doctor doctor = new Doctor(
-                        connection, 14, "proberra34@email.com", "Berra", "Taşdemir", "ProBerra34", "Doctor",
-                        14, "Cardiology" // Doctor-specific attributes
+                        connection, 16, "proberra34@email.com", "ccc", "cccc", "cc", "Doctor",
+                        16, "Moktor" // Doctor-specific attributes
                 );
 
 
