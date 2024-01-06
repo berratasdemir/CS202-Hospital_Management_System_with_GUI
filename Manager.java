@@ -14,37 +14,21 @@ public class Manager extends User {
     }
 
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
         String url = "jdbc:mysql://localhost:3306/cs202project";
         String user = "root";
         String password = "Ccs2002pwxyz";
 
         Manager manager = new Manager(20, "manager@email.com", "Can", "Sevgican", "pw", "Manager", 20);
 
-        try (Connection connection = DriverManager.getConnection(url, user, password)) {
-            if (connection != null) {
-                System.out.println("Connected to the database!");
 
-                Doctor doctor = new Doctor(
-                        connection, // Pass the connection object here
-                        18, // UserID
-                        "proberra34@email.com",
-                        "ccc",
-                        "cccc",
-                        "cc",
-                        "Doctor",
-                        18, // DoctorID
-                        "Moktor" // Doctor-specific attributes
-                );
-                manager.addDoctorToDB(doctor);
+        Doctor doctor = new Doctor(
+                getConnection(), 22, "proberra34@email.com", "ccc", "cccc", "cc", "Doctor",
+                22, "Moktor" // Doctor-specific attributes
+        );
 
-                // Further operations or method calls with the doctor object
-            } else {
-                System.out.println("Failed to make a connection!");
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        // Adding doctor to the database using Manager's method
+        manager.addDoctorToDB(doctor);
 
         // Testing viewPatientStatistics method
         manager.viewPatientStatistics();
@@ -69,25 +53,8 @@ public class Manager extends User {
     }
 
     public void addDoctorToDB(Doctor doctor) {
-        String insertDoctorQuery = "INSERT INTO Doctor (DoctorID, expertise, UserID) VALUES (?, ?, ?)";
-
-        try (Connection connection = getConnection(); // Implement your connection logic here
-             PreparedStatement preparedStatement = connection.prepareStatement(insertDoctorQuery)) {
-
-            preparedStatement.setInt(1, doctor.getDoctorID());
-            preparedStatement.setString(2, doctor.getExpertise());
-            preparedStatement.setInt(3, doctor.getUserID());
-
-            int rowsAffected = preparedStatement.executeUpdate();
-            if (rowsAffected > 0) {
-                System.out.println("Doctor added successfully!");
-            } else {
-                System.out.println("Failed to add doctor.");
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            // Handle the exception appropriately
-        }
+        doctor.addUser(doctor);
+        doctor.addDoctorDetailsToDB();
     }
 
     public void addNurseToDB(Nurse nurse) {
@@ -210,7 +177,7 @@ public class Manager extends User {
 
     // Implement getConnection() method to get database connection
     // You can use your preferred method for creating a database connection
-    private Connection getConnection() throws SQLException {
+    private static Connection getConnection() throws SQLException {
         String url = "jdbc:mysql://localhost:3306/cs202project"; // Update with your database URL
         String user = "root"; // Replace with your database username
         String password = "Ccs2002pwxyz"; // Replace with your database password
