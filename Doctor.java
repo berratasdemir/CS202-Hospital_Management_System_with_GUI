@@ -7,7 +7,7 @@ public class Doctor extends User {
     public static void main(String[] args) {
         String url = "jdbc:mysql://localhost:3306/cs202project";
         String user = "root";
-        String password = "Ccs2002pwxyz";
+        String password = "B89.e637";
 
         try (Connection connection = DriverManager.getConnection(url, user, password)) {
             if (connection != null) {
@@ -15,8 +15,8 @@ public class Doctor extends User {
 
                 // Creating a Doctor instance for testing
                 Doctor doctor = new Doctor(
-                        connection, 16, "proberra34@email.com", "ccc", "cccc", "cc", "Doctor",
-                        16, "Moktor" // Doctor-specific attributes
+                        connection, 17, "proberra34@email.com", "ccc", "cccc", "cc", "Doctor",
+                        17, "Moktor" // Doctor-specific attributes
                 );
 
 
@@ -78,7 +78,7 @@ public class Doctor extends User {
     public void addDoctorDetailsToDB() {
         String url = "jdbc:mysql://localhost:3306/cs202project";
         String user = "root";
-        String password = "Ccs2002pwxyz"; // Replace with your database password
+        String password = "B89.e637"; // Replace with your database password
 
         try (Connection connection = DriverManager.getConnection(url, user, password)) {
             if (connection != null) {
@@ -103,7 +103,7 @@ public class Doctor extends User {
 
     public List<Room> listRoomAvailability() {
         List<Room> availableRooms = new ArrayList<>();
-        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/cs202project", "root", "Ccs2002pwxyz");
+        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/cs202project", "root", "B89.e637");
              PreparedStatement stmt = conn.prepareStatement("SELECT * FROM Room WHERE Availability = 1")) {
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
@@ -123,7 +123,7 @@ public class Doctor extends User {
 
     // Method to assign a room to an appointment
     public void assignRoomToAppointment(Appointment appointment, Room room, Nurse nurse) {
-        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/cs202project", "root", "Ccs2002pwxyz");
+        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/cs202project", "root", "B89.e637");
              PreparedStatement stmt = conn.prepareStatement("UPDATE Appointment SET RoomID = ?, Status = ? WHERE AppointmentID = ?")) {
             stmt.setInt(1, room.getRoomID());
             stmt.setString(2, "Scheduled");
@@ -146,7 +146,7 @@ public class Doctor extends User {
 
     // Method to specify unavailability
     public void specifyUnavailability(Date startDate, Date endDate) {
-        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/cs202project", "root", "Ccs2002pwxyz");
+        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/cs202project", "root", "B89.e637");
              PreparedStatement stmt = conn.prepareStatement("INSERT INTO DoctorSchedule (start_date, end_date, type, DoctorID) VALUES (?, ?, ?, ?)")) {
             stmt.setTimestamp(1, new Timestamp(startDate.getTime())); // Use getTime() to get milliseconds from Date
             stmt.setTimestamp(2, new Timestamp(endDate.getTime()));
@@ -167,7 +167,7 @@ public class Doctor extends User {
     // Method to get upcoming appointments
     public List<Appointment> getUpcomingAppointments() {
         List<Appointment> upcomingAppointments = new ArrayList<>();
-        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/cs202project", "root", "Ccs2002pwxyz");
+        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/cs202project", "root", "B89.e637");
              PreparedStatement stmt = conn.prepareStatement("SELECT * FROM Appointment WHERE DoctorID = ? AND DateTime > NOW()")) {
             stmt.setInt(1, this.doctorID);
 
@@ -191,7 +191,7 @@ public class Doctor extends User {
     // Method to get past appointments
     public List<Appointment> getPastAppointments() {
         List<Appointment> pastAppointments = new ArrayList<>();
-        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/cs202project", "root", "Ccs2002pwxyz");
+        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/cs202project", "root", "B89.e637");
              PreparedStatement stmt = conn.prepareStatement("SELECT * FROM Appointment WHERE DoctorID = ? AND DateTime < NOW()")) {
             stmt.setInt(1, this.doctorID);
 

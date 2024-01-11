@@ -1,16 +1,16 @@
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.List;
+import java.sql.*;
 
 public class DoctorGUI extends JFrame {
 
     private Doctor doctor;
+    private User doc_user;
 
-    private JButton upcomingAppointmentsButton;
-    private JButton pastAppointmentsButton;
-    private JButton specifyUnavailabilityButton;
-    private JButton listRoomAvailabilityButton;
+    private JButton signInButton;
+    private JButton signUpButton;
 
     public DoctorGUI(Doctor doctor) {
         super("Doctor Screen");
@@ -19,50 +19,36 @@ public class DoctorGUI extends JFrame {
         initializeComponents();
     }
 
+    public DoctorGUI(Doctor doctor, User doc_user) {
+        super("Doctor Screen");
+        this.doctor = doctor;
+        this.doc_user = doc_user;
+        initializeComponents();
+    }
+
     private void initializeComponents() {
-        upcomingAppointmentsButton = new JButton("Upcoming Appointments");
-        pastAppointmentsButton = new JButton("Past Appointments");
-        specifyUnavailabilityButton = new JButton("Specify Unavailability");
-        listRoomAvailabilityButton = new JButton("List Room Availability");
+        signInButton = new JButton("Sign In");
+        signUpButton = new JButton("Sign Up");
 
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 
-        panel.add(upcomingAppointmentsButton);
-        panel.add(pastAppointmentsButton);
-        panel.add(specifyUnavailabilityButton);
-        panel.add(listRoomAvailabilityButton);
+        panel.add(signInButton);
+        panel.add(signUpButton);
 
         getContentPane().add(panel);
 
-        upcomingAppointmentsButton.addActionListener(new ActionListener() {
+        signInButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                showAppointments(doctor.getUpcomingAppointments(), "Upcoming Appointments");
+                openSignInScreen();
             }
         });
 
-        pastAppointmentsButton.addActionListener(new ActionListener() {
+        signUpButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                showAppointments(doctor.getPastAppointments(), "Past Appointments");
-            }
-        });
-
-        specifyUnavailabilityButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Handle specifying unavailability here
-                // You might open a new window or dialog for this functionality
-                // For simplicity, we will just print a message here
-                JOptionPane.showMessageDialog(DoctorGUI.this, "Specify Unavailability");
-            }
-        });
-
-        listRoomAvailabilityButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                showRooms(doctor.listRoomAvailability());
+                openSignUpWindow();
             }
         });
 
@@ -71,37 +57,130 @@ public class DoctorGUI extends JFrame {
         setVisible(true);
     }
 
-    private void showAppointments(List<Appointment> appointments, String title) {
-        StringBuilder message = new StringBuilder();
-        message.append(title).append(":\n");
+    private void openSignInScreen() {
+        // Create a new JFrame for the sign-in screen
+        JFrame signInFrame = new JFrame("Sign In");
+        signInFrame.setLayout(new FlowLayout());
 
-        if (appointments.isEmpty()) {
-            message.append("No appointments found.");
-        } else {
-            for (Appointment appointment : appointments) {
-                message.append(appointment).append("\n");
+        JLabel usernameLabel = new JLabel("Username:");
+        JTextField usernameField = new JTextField(15);
+
+        JLabel passwordLabel = new JLabel("Password:");
+        JPasswordField passwordField = new JPasswordField(15);
+
+        JButton signInScreenButton = new JButton("Sign In");
+
+        signInScreenButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String username = usernameField.getText();
+                String password = new String(passwordField.getPassword());
+
+                if (signIn(username, password)) {
+                    // Valid credentials, proceed to the doctor's screen
+                    JOptionPane.showMessageDialog(signInFrame, "Sign In successful! Opening Doctor's Screen.");
+                    signInFrame.dispose(); // Close the sign-in screen
+                    showDoctorScreen();
+                } else {
+                    // Invalid credentials, show an error message
+                    JOptionPane.showMessageDialog(signInFrame, "Invalid username or password. Please try again.");
+                }
             }
-        }
+        });
 
-        JOptionPane.showMessageDialog(this, message.toString(), title, JOptionPane.INFORMATION_MESSAGE);
+        signInFrame.add(usernameLabel);
+        signInFrame.add(usernameField);
+        signInFrame.add(passwordLabel);
+        signInFrame.add(passwordField);
+        signInFrame.add(signInScreenButton);
+
+        signInFrame.setSize(300, 150);
+        signInFrame.setVisible(true);
     }
 
-    private void showRooms(List<Room> rooms) {
-        StringBuilder message = new StringBuilder();
-        message.append("Available Rooms:\n");
+    private boolean signIn(String username, String password) {
+        // Implement logic to check username and password in the database
+        // Return true if credentials are correct, false otherwise
+        String url = "jdbc:mysql://localhost:3306/cs202project";
+        String user = "root";
+        String dbPassword = "B89.e637";
 
-        if (rooms.isEmpty()) {
-            message.append("No available rooms found.");
-        } else {
-            for (Room room : rooms) {
-                message.append(room).append("\n");
+        try (Connection connection = DriverManager.getConnection(url, user, dbPassword)) {
+            if (connection != null) {
+                String sql = "SELECT * FROM User WHERE email = ? AND password = ?";
+                try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+                    preparedStatement.setString(1, username);
+                    preparedStatement.setString(2, password);
+
+                    ResultSet resultSet = preparedStatement.executeQuery();
+                    return resultSet.next(); // Return true if a matching record is found
+                }
+
+
             }
+        } catch (SQLException exception) {
+            exception.printStackTrace();
         }
 
-        JOptionPane.showMessageDialog(this, message.toString(), "Available Rooms", JOptionPane.INFORMATION_MESSAGE);
+        return false;
     }
 
 
+    private void showDoctorScreen() {
+        if (doctor != null) {
+            JFrame doctorScreen = new JFrame("Doctor Information");
+            doctorScreen.setSize(300, 200);
 
+            JPanel panel = new JPanel();
+            panel.setLayout(new GridLayout(4, 1));
+
+            JLabel nameLabel = new JLabel("Name: " + doc_user.getFirstName() + " " + doc_user.getLastName());
+            JLabel emailLabel = new JLabel("Email: " + doc_user.getEmail());
+            JLabel expertiseLabel = new JLabel("Expertise: " + doctor.getExpertise());
+
+            JButton closeButton = new JButton("Close");
+            closeButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    doctorScreen.dispose();
+                }
+            });
+
+            panel.add(nameLabel);
+            panel.add(emailLabel);
+            panel.add(expertiseLabel);
+            panel.add(closeButton);
+
+            doctorScreen.add(panel);
+            doctorScreen.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            doctorScreen.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(this, "Doctor information not available.");
+        }
+    }
+
+
+    private void openSignUpWindow() {
+        // Implement logic to open the sign-up window
+        // You may need to create a new JFrame for signing up
+        // For simplicity, I'm showing a message dialog
+        JOptionPane.showMessageDialog(this, "Sign Up clicked. Implement your logic here.");
+    }
+
+    public static void main(String[] args) {
+        // Create an instance of DoctorGUI with a null Doctor object
+        DoctorGUI doctorGUI = new DoctorGUI(null);
+
+        // Set default close operation and size (replace it with your actual requirements)
+        doctorGUI.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        doctorGUI.setSize(400, 300);
+
+        // Make the GUI visible
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                doctorGUI.setVisible(true);
+            }
+        });
+    }
 }
-
