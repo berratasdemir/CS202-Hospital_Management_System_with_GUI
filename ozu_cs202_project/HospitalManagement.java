@@ -1,11 +1,12 @@
+package ozu_cs202_project;
+
+import ozu_cs202_project.DoctorSchedule;
 
         import java.sql.Connection;
         import java.sql.DriverManager;
         import java.sql.SQLException;
-        import java.time.LocalDateTime;
-        import java.util.List;
 
-public class HospitalManagement {
+        public class HospitalManagement {
 
 
     public static void main(String[] args) {
@@ -30,7 +31,7 @@ public class HospitalManagement {
 
 
     // Methods for handling user registration and login
-    // Methods for each user type (Patient, Manager, Nurse, Doctor) to perform specific actions
+    // Methods for each user type (ozu_cs202_project.Patient, ozu_cs202_project.Manager, ozu_cs202_project.Nurse, ozu_cs202_project.Doctor) to perform specific actions
     // Methods for appointment management
     // Methods for room management
     // Methods for statistics generation

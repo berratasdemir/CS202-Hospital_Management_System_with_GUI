@@ -1,3 +1,5 @@
+package ozu_cs202_project;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -41,7 +43,7 @@ public class RoomAssignment {
             preparedStatement.setBoolean(2, this.availability);
 
             preparedStatement.executeUpdate();
-            System.out.println("Room assignment details added to the database!");
+            System.out.println("ozu_cs202_project.Room assignment details added to the database!");
         } catch (SQLException e) {
             e.printStackTrace(); // Handle the exception appropriately
         }
@@ -54,7 +56,7 @@ public class RoomAssignment {
             preparedStatement.setInt(2, this.roomAssignmentID);
 
             preparedStatement.executeUpdate();
-            System.out.println("Room assignment details updated in the database!");
+            System.out.println("ozu_cs202_project.Room assignment details updated in the database!");
         } catch (SQLException e) {
             e.printStackTrace(); // Handle the exception appropriately
         }

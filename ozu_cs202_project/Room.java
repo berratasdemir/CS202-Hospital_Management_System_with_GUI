@@ -1,3 +1,5 @@
+package ozu_cs202_project;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -43,7 +45,7 @@ public class Room {
 
     @Override
     public String toString() {
-        return "Room ID: " + roomID + ", Room Type: " + roomType + ", Availability: " + (availability ? "Available" : "Not Available");
+        return "ozu_cs202_project.Room ID: " + roomID + ", ozu_cs202_project.Room Type: " + roomType + ", Availability: " + (availability ? "Available" : "Not Available");
     }
 
 
@@ -57,7 +59,7 @@ public class Room {
             preparedStatement.setBoolean(3, this.availability);
 
             preparedStatement.executeUpdate();
-            System.out.println("Room details added to the database!");
+            System.out.println("ozu_cs202_project.Room details added to the database!");
         } catch (SQLException e) {
             e.printStackTrace(); // Handle the exception appropriately
         }
@@ -73,7 +75,7 @@ public class Room {
             preparedStatement.setInt(3, this.roomID);
 
             preparedStatement.executeUpdate();
-            System.out.println("Room details updated in the database!");
+            System.out.println("ozu_cs202_project.Room details updated in the database!");
         } catch (SQLException e) {
             e.printStackTrace(); // Handle the exception appropriately
         }
@@ -87,7 +89,7 @@ public class Room {
             preparedStatement.setInt(1, this.roomID);
 
             preparedStatement.executeUpdate();
-            System.out.println("Room deleted from the database!");
+            System.out.println("ozu_cs202_project.Room deleted from the database!");
         } catch (SQLException e) {
             e.printStackTrace(); // Handle the exception appropriately
         }

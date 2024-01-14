@@ -1,3 +1,5 @@
+package ozu_cs202_project;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -13,14 +15,14 @@ public class DoctorGUI extends JFrame {
     private JButton signUpButton;
 
     public DoctorGUI(Doctor doctor) {
-        super("Doctor Screen");
+        super("ozu_cs202_project.Doctor Screen");
         this.doctor = doctor;
 
         initializeComponents();
     }
 
     public DoctorGUI(Doctor doctor, User doc_user) {
-        super("Doctor Screen");
+        super("ozu_cs202_project.Doctor Screen");
         this.doctor = doctor;
         this.doc_user = doc_user;
         initializeComponents();
@@ -78,7 +80,7 @@ public class DoctorGUI extends JFrame {
 
                 if (signIn(username, password)) {
                     // Valid credentials, proceed to the doctor's screen
-                    JOptionPane.showMessageDialog(signInFrame, "Sign In successful! Opening Doctor's Screen.");
+                    JOptionPane.showMessageDialog(signInFrame, "Sign In successful! Opening ozu_cs202_project.Doctor's Screen.");
                     signInFrame.dispose(); // Close the sign-in screen
                     showDoctorScreen();
                 } else {
@@ -128,7 +130,7 @@ public class DoctorGUI extends JFrame {
 
     private void showDoctorScreen() {
         if (doctor != null) {
-            JFrame doctorScreen = new JFrame("Doctor Information");
+            JFrame doctorScreen = new JFrame("ozu_cs202_project.Doctor Information");
             doctorScreen.setSize(300, 200);
 
             JPanel panel = new JPanel();
@@ -155,7 +157,7 @@ public class DoctorGUI extends JFrame {
             doctorScreen.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             doctorScreen.setVisible(true);
         } else {
-            JOptionPane.showMessageDialog(this, "Doctor information not available.");
+            JOptionPane.showMessageDialog(this, "ozu_cs202_project.Doctor information not available.");
         }
     }
 
@@ -168,7 +170,7 @@ public class DoctorGUI extends JFrame {
     }
 
     public static void main(String[] args) {
-        // Create an instance of DoctorGUI with a null Doctor object
+        // Create an instance of ozu_cs202_project.DoctorGUI with a null ozu_cs202_project.Doctor object
         DoctorGUI doctorGUI = new DoctorGUI(null);
 
         // Set default close operation and size (replace it with your actual requirements)

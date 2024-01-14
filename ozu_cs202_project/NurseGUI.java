@@ -1,3 +1,5 @@
+package ozu_cs202_project;
+
 import javax.swing.*;
 import java.awt.*;
 import java.sql.Connection;
@@ -16,7 +18,7 @@ public class NurseGUI extends JFrame {
     }
 
     private void initializeGUI() {
-        setTitle("Nurse Dashboard");
+        setTitle("ozu_cs202_project.Nurse Dashboard");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(600, 400);
         setLocationRelativeTo(null);
@@ -25,7 +27,7 @@ public class NurseGUI extends JFrame {
         JPanel panel = new JPanel();
         panel.setLayout(new FlowLayout());
 
-        JButton viewRoomAvailabilityButton = new JButton("View Room Availability");
+        JButton viewRoomAvailabilityButton = new JButton("View ozu_cs202_project.Room Availability");
         JButton viewUpcomingAssignedRoomsButton = new JButton("View Upcoming Assigned Rooms");
 
         viewRoomAvailabilityButton.addActionListener(e -> onViewRoomAvailability());
@@ -60,7 +62,7 @@ public class NurseGUI extends JFrame {
     }
 
     public static void main(String[] args) {
-        // For testing the NurseGUI
+        // For testing the ozu_cs202_project.NurseGUI
         String url = "jdbc:mysql://localhost:3306/cs202project";
         String user = "root";
         String password = "B89.e637";
@@ -68,7 +70,7 @@ public class NurseGUI extends JFrame {
         try (Connection connection = DriverManager.getConnection(url, user, password)) {
             if (connection != null) {
                 Nurse nurse = new Nurse(
-                        connection, 1, "nurse@email.com", "Nurse", "One", "nursepass", "Nurse",
+                        connection, 1, "nurse@email.com", "ozu_cs202_project.Nurse", "One", "nursepass", "ozu_cs202_project.Nurse",
                         1, "Emergency"
                 );
 

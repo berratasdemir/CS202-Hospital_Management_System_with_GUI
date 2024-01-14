@@ -1,3 +1,5 @@
+package ozu_cs202_project;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,7 +16,7 @@ public class PatientGUI extends JFrame {
     private JButton cancelAppointmentButton;
 
     public PatientGUI(Patient patient) {
-        super("Patient Screen");
+        super("ozu_cs202_project.Patient Screen");
         this.patient = patient;
 
         initializeComponents();
@@ -22,10 +24,10 @@ public class PatientGUI extends JFrame {
 
     private void initializeComponents() {
         searchDoctorsButton = new JButton("Search Doctors by Expertise");
-        filterAppointmentsButton = new JButton("Filter Appointments by Doctor Expertise");
+        filterAppointmentsButton = new JButton("Filter Appointments by ozu_cs202_project.Doctor Expertise");
         searchDoctorsByAvailabilityButton = new JButton("Search Doctors by Availability");
-        bookAppointmentButton = new JButton("Book Appointment");
-        cancelAppointmentButton = new JButton("Cancel Appointment");
+        bookAppointmentButton = new JButton("Book ozu_cs202_project.Appointment");
+        cancelAppointmentButton = new JButton("Cancel ozu_cs202_project.Appointment");
 
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
@@ -130,12 +132,12 @@ public class PatientGUI extends JFrame {
                         "Jane", // Replace with the actual first name
                         "Doe", // Replace with the actual last name
                         "patient_password", // Replace with the actual password
-                        "Patient", // Assuming the user type is Patient
+                        "ozu_cs202_project.Patient", // Assuming the user type is ozu_cs202_project.Patient
                         789, // Replace with the actual patient ID
                         "Heart condition" // Replace with the actual medical history
                 );
 
-                // Pass the Patient object to the PatientGUI constructor
+                // Pass the ozu_cs202_project.Patient object to the ozu_cs202_project.PatientGUI constructor
                 PatientGUI patientGUI = new PatientGUI(patient);
                 patientGUI.setVisible(true);
             }

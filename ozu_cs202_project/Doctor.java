@@ -1,3 +1,5 @@
+package ozu_cs202_project;
+
 import java.sql.*;
 import java.util.List;
 import java.util.ArrayList;
@@ -13,10 +15,10 @@ public class Doctor extends User {
             if (connection != null) {
                 System.out.println("Connected to the database!");
 
-                // Creating a Doctor instance for testing
+                // Creating a ozu_cs202_project.Doctor instance for testing
                 Doctor doctor = new Doctor(
-                        connection, 17, "proberra34@email.com", "ccc", "cccc", "cc", "Doctor",
-                        17, "Moktor" // Doctor-specific attributes
+                        connection, 17, "proberra34@email.com", "ccc", "cccc", "cc", "ozu_cs202_project.Doctor",
+                        17, "Moktor" // ozu_cs202_project.Doctor-specific attributes
                 );
 
 
@@ -54,7 +56,7 @@ public class Doctor extends User {
     public Doctor(Connection connection, int userID, String email, String firstName, String lastName, String password, String userType,
                   int doctorID, String expertise) {
         super(userID, email, firstName, lastName, password, userType);
-        this.connection = connection; // Initialize connection in Doctor class
+        this.connection = connection; // Initialize connection in ozu_cs202_project.Doctor class
         this.doctorID = doctorID;
         this.expertise = expertise;
     }
@@ -86,10 +88,10 @@ public class Doctor extends User {
                 try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
                     preparedStatement.setInt(1, this.doctorID);
                     preparedStatement.setString(2, this.expertise);
-                    preparedStatement.setInt(3, this.getUserID()); // Assuming getUserID() method exists in the User class
+                    preparedStatement.setInt(3, this.getUserID()); // Assuming getUserID() method exists in the ozu_cs202_project.User class
 
                     preparedStatement.executeUpdate();
-                    System.out.println("Doctor details added to the database!");
+                    System.out.println("ozu_cs202_project.Doctor details added to the database!");
                 } catch (SQLException e) {
                     e.printStackTrace(); // Handle the exception appropriately
                 }
@@ -134,9 +136,9 @@ public class Doctor extends User {
             if (rowsAffected > 0) {
                 // Create room assignment record
                 RoomAssignment roomAssignment = new RoomAssignment(appointment, room, this, nurse);
-                roomAssignment.saveToDatabase(conn); // Assuming a method to save RoomAssignment to the database
+                roomAssignment.saveToDatabase(conn); // Assuming a method to save ozu_cs202_project.RoomAssignment to the database
             } else {
-                // Appointment update failed, handle accordingly
+                // ozu_cs202_project.Appointment update failed, handle accordingly
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -178,7 +180,7 @@ public class Doctor extends User {
                 String status = rs.getString("Status");
                 // Retrieve other appointment details
 
-                Appointment appointment = new Appointment(appointmentID, dateTime.toLocalDateTime(), status); // Create Appointment object with details
+                Appointment appointment = new Appointment(appointmentID, dateTime.toLocalDateTime(), status); // Create ozu_cs202_project.Appointment object with details
                 upcomingAppointments.add(appointment);
             }
         } catch (SQLException e) {
@@ -202,7 +204,7 @@ public class Doctor extends User {
                 String status = rs.getString("Status");
                 // Retrieve other appointment details
 
-                Appointment appointment = new Appointment(appointmentID, dateTime.toLocalDateTime(), status); // Create Appointment object with details
+                Appointment appointment = new Appointment(appointmentID, dateTime.toLocalDateTime(), status); // Create ozu_cs202_project.Appointment object with details
                 pastAppointments.add(appointment);
             }
         } catch (SQLException e) {

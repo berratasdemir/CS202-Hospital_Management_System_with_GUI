@@ -1,3 +1,5 @@
+package ozu_cs202_project;
+
 import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -28,12 +30,12 @@ public class DoctorSchedule {
 
                 DoctorSchedule doctorSchedule = new DoctorSchedule(connection);
 
-                // Replace 10 with an existing Doctor ID for testing
+                // Replace 10 with an existing ozu_cs202_project.Doctor ID for testing
                 int doctorID = 10;
                 List<DoctorSchedule> doctorSchedules = doctorSchedule.getDoctorSchedules(doctorID);
 
                 // Displaying retrieved doctor schedules
-                System.out.println("Doctor Schedules for Doctor ID " + doctorID + ":");
+                System.out.println("ozu_cs202_project.Doctor Schedules for ozu_cs202_project.Doctor ID " + doctorID + ":");
                 for (DoctorSchedule schedule : doctorSchedules) {
                     int scheduleID = schedule.getScheduleID();
                     LocalDateTime startDate = schedule.getStartDate();
@@ -110,7 +112,7 @@ public class DoctorSchedule {
             if (rowsUpdated > 0) {
                 System.out.println("Schedule updated in the database!");
             } else {
-                System.out.println("Schedule with ID " + scheduleID + " not found for Doctor ID " + doctorID);
+                System.out.println("Schedule with ID " + scheduleID + " not found for ozu_cs202_project.Doctor ID " + doctorID);
             }
         } catch (SQLException e) {
             throw new SQLException("Error updating schedule in the database", e);

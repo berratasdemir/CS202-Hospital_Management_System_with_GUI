@@ -1,3 +1,5 @@
+package ozu_cs202_project;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -19,15 +21,15 @@ public class Manager extends User {
         String user = "root";
         String password = "B89.e637";
 
-        Manager manager = new Manager(20, "manager@email.com", "Can", "Sevgican", "pw", "Manager", 20);
+        Manager manager = new Manager(20, "manager@email.com", "Can", "Sevgican", "pw", "ozu_cs202_project.Manager", 20);
 
 
         Doctor doctor = new Doctor(
-                getConnection(), 22, "proberra34@email.com", "ccc", "cccc", "cc", "Doctor",
-                22, "Moktor" // Doctor-specific attributes
+                getConnection(), 22, "proberra34@email.com", "ccc", "cccc", "cc", "ozu_cs202_project.Doctor",
+                22, "Moktor" // ozu_cs202_project.Doctor-specific attributes
         );
 
-        // Adding doctor to the database using Manager's method
+        // Adding doctor to the database using ozu_cs202_project.Manager's method
         manager.addDoctorToDB(doctor);
 
         // Testing viewPatientStatistics method
@@ -69,7 +71,7 @@ public class Manager extends User {
 
             int rowsAffected = preparedStatement.executeUpdate();
             if (rowsAffected > 0) {
-                System.out.println("Nurse added successfully!");
+                System.out.println("ozu_cs202_project.Nurse added successfully!");
             } else {
                 System.out.println("Failed to add nurse.");
             }
@@ -90,7 +92,7 @@ public class Manager extends User {
             preparedStatement.setInt(3, patient.getUserID());
 
             preparedStatement.executeUpdate();
-            System.out.println("Patient details added to the database!");
+            System.out.println("ozu_cs202_project.Patient details added to the database!");
         } catch (SQLException e) {
             e.printStackTrace(); // Handle the exception appropriately
         }
@@ -109,7 +111,7 @@ public class Manager extends User {
             while (resultSet.next()) {
                 int patientCount = resultSet.getInt(1);
                 String department = resultSet.getString(2);
-                System.out.println("Department: " + department + ", Patient Count: " + patientCount);
+                System.out.println("Department: " + department + ", ozu_cs202_project.Patient Count: " + patientCount);
             }
         } catch (SQLException e) {
             e.printStackTrace(); // Handle the exception appropriately
@@ -128,7 +130,7 @@ public class Manager extends User {
             while (resultSet.next()) {
                 int roomID = resultSet.getInt("RoomID");
                 int appointmentCount = resultSet.getInt("AppointmentCount");
-                System.out.println("Room ID: " + roomID + ", Appointment Count: " + appointmentCount);
+                System.out.println("ozu_cs202_project.Room ID: " + roomID + ", ozu_cs202_project.Appointment Count: " + appointmentCount);
             }
         } catch (SQLException e) {
             e.printStackTrace(); // Handle the exception appropriately
@@ -166,7 +168,7 @@ public class Manager extends User {
             while (resultSet.next()) {
                 int doctorID = resultSet.getInt("DoctorID");
                 int roomBookingCount = resultSet.getInt("RoomBookingCount");
-                System.out.println("Doctor ID: " + doctorID + ", Room Booking Count: " + roomBookingCount);
+                System.out.println("ozu_cs202_project.Doctor ID: " + doctorID + ", ozu_cs202_project.Room Booking Count: " + roomBookingCount);
             }
         } catch (SQLException e) {
             e.printStackTrace(); // Handle the exception appropriately

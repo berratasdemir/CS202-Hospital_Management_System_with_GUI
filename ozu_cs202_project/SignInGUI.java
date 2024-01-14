@@ -1,3 +1,5 @@
+package ozu_cs202_project;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -70,20 +72,20 @@ public class SignInGUI extends JFrame {
         JFrame frame;
 
         switch (userType) {
-            case "Nurse":
+            case "ozu_cs202_project.Nurse":
                 frame = new NurseGUI((Nurse) user);
                 break;
-            case "Doctor":
+            case "ozu_cs202_project.Doctor":
                 frame = new DoctorGUI((Doctor) user);
                 break;
-            case "Manager":
+            case "ozu_cs202_project.Manager":
                 frame = new ManagerGUI();
                 break;
-            case "Patient":
+            case "ozu_cs202_project.Patient":
                 frame = new PatientGUI((Patient) user);
                 break;
             default:
-                frame = new JFrame("Unknown User Type");
+                frame = new JFrame("Unknown ozu_cs202_project.User Type");
                 break;
         }
 

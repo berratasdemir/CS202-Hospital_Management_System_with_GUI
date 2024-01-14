@@ -1,3 +1,5 @@
+package ozu_cs202_project;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,10 +27,10 @@ public class Nurse extends User {
             if (connection != null) {
                 System.out.println("Connected to the database!");
 
-                // Creating a Nurse instance for testing
+                // Creating a ozu_cs202_project.Nurse instance for testing
                 Nurse nurse = new Nurse(
-                        connection, 7, "farni2@creativecommons.org", "Kalli", "Beauvais", "yJ6%ttezw#", "Nurse",
-                        7, "Pediatrics" // Nurse-specific attributes
+                        connection, 7, "farni2@creativecommons.org", "Kalli", "Beauvais", "yJ6%ttezw#", "ozu_cs202_project.Nurse",
+                        7, "Pediatrics" // ozu_cs202_project.Nurse-specific attributes
                 );
 
                /* // Adding the user details using the inherited addUser method
@@ -38,12 +40,12 @@ public class Nurse extends User {
                 // Testing viewUpcomingAssignedRooms method
                 List<Room> assignedRooms = nurse.viewUpcomingAssignedRooms();
 
-                System.out.println("Upcoming Assigned Rooms for Nurse:");
+                System.out.println("Upcoming Assigned Rooms for ozu_cs202_project.Nurse:");
                 for (Room room : assignedRooms) {
-                    System.out.println("Room ID: " + room.getRoomID() + ", Room Type: " + room.getRoomType());
+                    System.out.println("ozu_cs202_project.Room ID: " + room.getRoomID() + ", ozu_cs202_project.Room Type: " + room.getRoomType());
                 }
 
-                // Other methods of Nurse can be tested similarly
+                // Other methods of ozu_cs202_project.Nurse can be tested similarly
 
             } else {
                 System.out.println("Failed to make a connection!");
@@ -64,10 +66,10 @@ public class Nurse extends User {
                 try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
                     preparedStatement.setInt(1, this.nurseID);
                     preparedStatement.setString(2, this.department);
-                    preparedStatement.setInt(3, this.getUserID()); // Assuming getUserID() method exists in the User class
+                    preparedStatement.setInt(3, this.getUserID()); // Assuming getUserID() method exists in the ozu_cs202_project.User class
 
                     preparedStatement.executeUpdate();
-                    System.out.println("Nurse details added to the database!");
+                    System.out.println("ozu_cs202_project.Nurse details added to the database!");
                 } catch (SQLException e) {
                     e.printStackTrace(); // Handle the exception appropriately
                 }
@@ -131,7 +133,7 @@ public class Nurse extends User {
                     "AND Appointment.DateTime > ?"; // Parameterized query
 
             try (PreparedStatement stmt = conn.prepareStatement(sql)) {
-                stmt.setInt(1, this.nurseID); // Assuming nurseID is accessible within the Nurse object
+                stmt.setInt(1, this.nurseID); // Assuming nurseID is accessible within the ozu_cs202_project.Nurse object
 
                 // Get the current date and time in Java
                 LocalDateTime currentDateTime = LocalDateTime.now();
