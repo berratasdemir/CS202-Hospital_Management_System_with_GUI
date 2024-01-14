@@ -35,7 +35,7 @@ public class DoctorSchedule {
                 List<DoctorSchedule> doctorSchedules = doctorSchedule.getDoctorSchedules(doctorID);
 
                 // Displaying retrieved doctor schedules
-                System.out.println("Doctor Schedules for ozu_cs202_project.Doctor ID " + doctorID + ":");
+                System.out.println("Doctor Schedules for Doctor ID " + doctorID + ":");
                 for (DoctorSchedule schedule : doctorSchedules) {
                     int scheduleID = schedule.getScheduleID();
                     LocalDateTime startDate = schedule.getStartDate();
