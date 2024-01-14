@@ -8,14 +8,15 @@ import java.awt.event.ActionListener;
 public class HospitalManagementGUI extends JFrame {
 
     private DoctorGUI doctor;
+
     public HospitalManagementGUI() {
         super("Hospital Management System");
 
         // Create buttons
         JButton adminButton = new JButton("Login as Admin");
-        JButton doctorButton = new JButton("Login as ozu_cs202_project.Doctor");
-        JButton patientButton = new JButton("Login as ozu_cs202_project.Patient");
-        JButton nurseButton = new JButton("Login as ozu_cs202_project.Nurse");
+        JButton doctorButton = new JButton("Login as Doctor");
+        JButton patientButton = new JButton("Login as Patient");
+        JButton nurseButton = new JButton("Login as Nurse");
 
         // Set layout
         setLayout(new GridLayout(4, 1));
@@ -61,32 +62,68 @@ public class HospitalManagementGUI extends JFrame {
     }
 
     private void openAdminLoginScreen() {
-        // Implement logic to open the Admin login screen
-        // Example: new AdminLoginGUI();
-    }
+        ManagerGUI managerGUI = new ManagerGUI();
 
-    private void openDoctorLoginScreen() {
-        // Assuming you have the necessary information to create a ozu_cs202_project.Doctor instance
+        managerGUI.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-    }
-
-
-    private void openPatientLoginScreen() {
-        // Implement logic to open the ozu_cs202_project.Patient login screen
-        // Example: new PatientLoginGUI();
-    }
-
-    private void openNurseLoginScreen() {
-        // Implement logic to open the ozu_cs202_project.Nurse login screen
-        // Example: new NurseLoginGUI();
-    }
-
-    public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new HospitalManagementGUI();
+                managerGUI.setVisible(true);
             }
         });
     }
-}
+
+        private void openDoctorLoginScreen () {
+            DoctorGUI doctorGUI = new DoctorGUI();
+
+            doctorGUI.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+            SwingUtilities.invokeLater(new Runnable() {
+                @Override
+                public void run() {
+                    doctorGUI.setVisible(true);
+                }
+            });
+        }
+
+
+        private void openPatientLoginScreen () {
+            PatientGUI patientGUI = new PatientGUI(null);
+
+            patientGUI.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+            SwingUtilities.invokeLater(new Runnable() {
+                @Override
+                public void run() {
+                    patientGUI.setVisible(true);
+                }
+            });
+        }
+
+
+        private void openNurseLoginScreen () {
+
+            NurseGUI nurseGUI = new NurseGUI();
+
+            nurseGUI.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+            SwingUtilities.invokeLater(new Runnable() {
+                @Override
+                public void run() {
+                    nurseGUI.setVisible(true);
+                }
+            });
+
+        }
+
+        public static void main (String[]args){
+            SwingUtilities.invokeLater(new Runnable() {
+                @Override
+                public void run() {
+                    new HospitalManagementGUI();
+                }
+            });
+        }
+    }
+

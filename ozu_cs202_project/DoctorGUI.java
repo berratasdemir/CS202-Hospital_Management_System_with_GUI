@@ -12,17 +12,20 @@ public class DoctorGUI extends JFrame {
     private User doc_user;
 
     private JButton signInButton;
-    private JButton signUpButton;
+
+    public DoctorGUI() {
+        super("Doctor Screen");
+        initializeComponents();
+    }
 
     public DoctorGUI(Doctor doctor) {
-        super("ozu_cs202_project.Doctor Screen");
+        super("Doctor Screen");
         this.doctor = doctor;
-
         initializeComponents();
     }
 
     public DoctorGUI(Doctor doctor, User doc_user) {
-        super("ozu_cs202_project.Doctor Screen");
+        super("Doctor Screen");
         this.doctor = doctor;
         this.doc_user = doc_user;
         initializeComponents();
@@ -30,13 +33,14 @@ public class DoctorGUI extends JFrame {
 
     private void initializeComponents() {
         signInButton = new JButton("Sign In");
-        signUpButton = new JButton("Sign Up");
 
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 
+        // Center the sign-in button
+        panel.add(Box.createVerticalGlue());
         panel.add(signInButton);
-        panel.add(signUpButton);
+        panel.add(Box.createVerticalGlue());
 
         getContentPane().add(panel);
 
@@ -47,20 +51,13 @@ public class DoctorGUI extends JFrame {
             }
         });
 
-        signUpButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                openSignUpWindow();
-            }
-        });
-
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(300, 200);
+        setLocationRelativeTo(null); // Center the frame on the screen
         setVisible(true);
     }
 
     private void openSignInScreen() {
-        // Create a new JFrame for the sign-in screen
         JFrame signInFrame = new JFrame("Sign In");
         signInFrame.setLayout(new FlowLayout());
 
@@ -79,12 +76,10 @@ public class DoctorGUI extends JFrame {
                 String password = new String(passwordField.getPassword());
 
                 if (signIn(username, password)) {
-                    // Valid credentials, proceed to the doctor's screen
-                    JOptionPane.showMessageDialog(signInFrame, "Sign In successful! Opening ozu_cs202_project.Doctor's Screen.");
-                    signInFrame.dispose(); // Close the sign-in screen
+                    JOptionPane.showMessageDialog(signInFrame, "Sign In successful! Opening Doctor's Screen.");
+                    signInFrame.dispose();
                     showDoctorScreen();
                 } else {
-                    // Invalid credentials, show an error message
                     JOptionPane.showMessageDialog(signInFrame, "Invalid username or password. Please try again.");
                 }
             }
@@ -97,12 +92,11 @@ public class DoctorGUI extends JFrame {
         signInFrame.add(signInScreenButton);
 
         signInFrame.setSize(300, 150);
+        signInFrame.setLocationRelativeTo(null); // Center the frame on the screen
         signInFrame.setVisible(true);
     }
 
     private boolean signIn(String username, String password) {
-        // Implement logic to check username and password in the database
-        // Return true if credentials are correct, false otherwise
         String url = "jdbc:mysql://localhost:3306/cs202project";
         String user = "root";
         String dbPassword = "B89.e637";
@@ -115,10 +109,8 @@ public class DoctorGUI extends JFrame {
                     preparedStatement.setString(2, password);
 
                     ResultSet resultSet = preparedStatement.executeQuery();
-                    return resultSet.next(); // Return true if a matching record is found
+                    return resultSet.next();
                 }
-
-
             }
         } catch (SQLException exception) {
             exception.printStackTrace();
@@ -127,10 +119,9 @@ public class DoctorGUI extends JFrame {
         return false;
     }
 
-
     private void showDoctorScreen() {
         if (doctor != null) {
-            JFrame doctorScreen = new JFrame("ozu_cs202_project.Doctor Information");
+            JFrame doctorScreen = new JFrame("Doctor Information");
             doctorScreen.setSize(300, 200);
 
             JPanel panel = new JPanel();
@@ -155,30 +146,18 @@ public class DoctorGUI extends JFrame {
 
             doctorScreen.add(panel);
             doctorScreen.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            doctorScreen.setLocationRelativeTo(null); // Center the frame on the screen
             doctorScreen.setVisible(true);
         } else {
-            JOptionPane.showMessageDialog(this, "ozu_cs202_project.Doctor information not available.");
+            JOptionPane.showMessageDialog(this, "Doctor information not available.");
         }
     }
 
-
-    private void openSignUpWindow() {
-        // Implement logic to open the sign-up window
-        // You may need to create a new JFrame for signing up
-        JOptionPane.showMessageDialog(this, "Sign Up clicked. Implement your logic here.");
-    }
-
     public static void main(String[] args) {
-        DoctorGUI doctorGUI = new DoctorGUI(null);
-
-        doctorGUI.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        doctorGUI.setSize(400, 300);
-
-        // Make the GUI visible
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                doctorGUI.setVisible(true);
+                new DoctorGUI();
             }
         });
     }

@@ -17,6 +17,7 @@ public class Patient extends User {
         super(userID, email, firstName, lastName, password, userType);
         this.patientID = patientID;
         this.medical_history = medical_history;
+
     }
 
     public int getPatientID() {
@@ -34,6 +35,18 @@ public class Patient extends User {
     public void setMedicalHistory(String medicalHistory) {
         this.medical_history = medicalHistory;
     }
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
 
     public void addPatientDetailsToDB() {
         String url = "jdbc:mysql://localhost:3306/cs202project";
@@ -194,11 +207,4 @@ public class Patient extends User {
         }
     }
 
-
-
-
-
-
-
-    // Other methods remain unchanged
 }

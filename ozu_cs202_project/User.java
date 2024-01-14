@@ -6,9 +6,9 @@ import java.util.List;
 
 public class User {
     private int userID;
-    private String email;
-    private String firstName;
-    private String lastName;
+    String email;
+    String firstName;
+    String lastName;
     private String password;
     private String userType;
 
