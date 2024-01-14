@@ -29,10 +29,4 @@ import ozu_cs202_project.DoctorSchedule;
         }
     }
 
-
-    // Methods for handling user registration and login
-    // Methods for each user type (ozu_cs202_project.Patient, ozu_cs202_project.Manager, ozu_cs202_project.Nurse, ozu_cs202_project.Doctor) to perform specific actions
-    // Methods for appointment management
-    // Methods for room management
-    // Methods for statistics generation
 }

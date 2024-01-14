@@ -15,21 +15,16 @@ public class Doctor extends User {
             if (connection != null) {
                 System.out.println("Connected to the database!");
 
-                // Creating a ozu_cs202_project.Doctor instance for testing
                 Doctor doctor = new Doctor(
                         connection, 17, "proberra34@email.com", "ccc", "cccc", "cc", "ozu_cs202_project.Doctor",
                         17, "Moktor" // ozu_cs202_project.Doctor-specific attributes
                 );
 
 
-                // Adding the user details using the inherited addUser method
                 doctor.addUser(doctor);
 
-                // Adding doctor-specific details to the database
                 doctor.addDoctorDetailsToDB();
 
-
-                // Testing listRoomAvailability method
                 List<Room> availableRooms = doctor.listRoomAvailability();
 
                 System.out.println("Available Rooms:");
@@ -37,8 +32,6 @@ public class Doctor extends User {
                     System.out.println(room); // This will call the overridden toString() method
                 }
 
-                // Assuming other methods are tested in a similar manner
-                // Testing assignRoomToAppointment, specifyUnavailability, getUpcomingAppointments, getPastAppointments methods
             } else {
                 System.out.println("Failed to make a connection!");
             }
@@ -123,7 +116,6 @@ public class Doctor extends User {
         return availableRooms;
     }
 
-    // Method to assign a room to an appointment
     public void assignRoomToAppointment(Appointment appointment, Room room, Nurse nurse) {
         try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/cs202project", "root", "B89.e637");
              PreparedStatement stmt = conn.prepareStatement("UPDATE Appointment SET RoomID = ?, Status = ? WHERE AppointmentID = ?")) {
@@ -146,7 +138,6 @@ public class Doctor extends User {
         }
     }
 
-    // Method to specify unavailability
     public void specifyUnavailability(Date startDate, Date endDate) {
         try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/cs202project", "root", "B89.e637");
              PreparedStatement stmt = conn.prepareStatement("INSERT INTO DoctorSchedule (start_date, end_date, type, DoctorID) VALUES (?, ?, ?, ?)")) {
@@ -165,8 +156,6 @@ public class Doctor extends User {
             // Handle the exception as required
         }
     }
-
-    // Method to get upcoming appointments
     public List<Appointment> getUpcomingAppointments() {
         List<Appointment> upcomingAppointments = new ArrayList<>();
         try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/cs202project", "root", "B89.e637");
@@ -190,7 +179,6 @@ public class Doctor extends User {
         return upcomingAppointments;
     }
 
-    // Method to get past appointments
     public List<Appointment> getPastAppointments() {
         List<Appointment> pastAppointments = new ArrayList<>();
         try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/cs202project", "root", "B89.e637");

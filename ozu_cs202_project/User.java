@@ -39,7 +39,7 @@ public class User {
 
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace(); // Handle the exception appropriately
+            e.printStackTrace();
         }
     }
 
@@ -56,7 +56,7 @@ public class User {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace(); // Handle the exception appropriately
+            e.printStackTrace();
         }
 
         return user;
@@ -73,13 +73,12 @@ public class User {
                 userList.add(user);
             }
         } catch (SQLException e) {
-            e.printStackTrace(); // Handle the exception appropriately
+            e.printStackTrace();
         }
 
         return userList;
     }
 
-    // Method to update user information
     public void updateUser(User user) {
         String sql = "UPDATE User SET email=?, first_name=?, last_name=?, password=?, userType=? WHERE UserID = ?";
 
@@ -93,11 +92,11 @@ public class User {
 
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace(); // Handle the exception appropriately
+            e.printStackTrace();
         }
     }
 
-    // Method to delete a user by UserID
+
     public void deleteUser(int userID) {
         String sql = "DELETE FROM User WHERE UserID = ?";
 
@@ -105,7 +104,7 @@ public class User {
             preparedStatement.setInt(1, userID);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace(); // Handle the exception appropriately
+            e.printStackTrace();
         }
     }
     private User extractUserFromResultSet(ResultSet resultSet) throws SQLException {
@@ -127,11 +126,10 @@ public class User {
             preparedStatement.setString(2, password);
 
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                // If resultSet has at least one row, authentication is successful
                 isAuthenticated = resultSet.next();
             }
         } catch (SQLException e) {
-            e.printStackTrace(); // Handle the exception appropriately
+            e.printStackTrace();
         }
 
         return isAuthenticated;

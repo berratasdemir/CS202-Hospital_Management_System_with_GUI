@@ -22,18 +22,16 @@ public class UserGUI extends JFrame {
     public UserGUI() {
         connection = establishConnection();
 
-        // Initialize ozu_cs202_project.User class with the connection
         user = new User(connection);
 
-        setTitle("ozu_cs202_project.User Management");
+        setTitle("User Management");
         setSize(400, 300);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         createComponents();
 
-        // Place the components on the frame
         setLayout(new GridLayout(7, 2));
-        add(new JLabel("ozu_cs202_project.User ID:"));
+        add(new JLabel("User ID:"));
         add(userIDField);
         add(new JLabel("Email:"));
         add(emailField);
@@ -43,7 +41,7 @@ public class UserGUI extends JFrame {
         add(lastNameField);
         add(new JLabel("Password:"));
         add(passwordField);
-        add(new JLabel("ozu_cs202_project.User Type:"));
+        add(new JLabel("User Type:"));
         add(userTypeField);
 
         JButton addUserButton = new JButton("Add ozu_cs202_project.User");
@@ -77,7 +75,6 @@ public class UserGUI extends JFrame {
 
         User newUser = new User(userID, email, firstName, lastName, password, userType);
 
-        // Open a new window based on the user type
         if ("doctor".equalsIgnoreCase(userType)) {
             openDoctorScreen(newUser);
         } else if ("patient".equalsIgnoreCase(userType)) {
@@ -88,8 +85,7 @@ public class UserGUI extends JFrame {
             JOptionPane.showMessageDialog(this, "Invalid user type!");
         }
 
-        // Optionally, you can display a success message or update the UI
-        JOptionPane.showMessageDialog(this, "ozu_cs202_project.User added successfully!");
+        JOptionPane.showMessageDialog(this, "User added successfully!");
 
         // Clear the input fields after adding the user
         clearFields();
@@ -105,7 +101,7 @@ public class UserGUI extends JFrame {
     }
 
     private void openDoctorScreen(User newUser) {
-        JFrame doctorFrame = new JFrame("ozu_cs202_project.Doctor Information");
+        JFrame doctorFrame = new JFrame("Doctor Information");
         doctorFrame.setSize(400, 300);
         doctorFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
@@ -115,31 +111,30 @@ public class UserGUI extends JFrame {
         JTextField doctorIDField = new JTextField();
         JTextField expertiseField = new JTextField();
 
-        doctorPanel.add(new JLabel("ozu_cs202_project.Doctor ID:"));
+        doctorPanel.add(new JLabel("Doctor ID:"));
         doctorPanel.add(doctorIDField);
         doctorPanel.add(new JLabel("Expertise:"));
         doctorPanel.add(expertiseField);
 
-        JButton saveButton = new JButton("Save ozu_cs202_project.Doctor Information");
+        JButton saveButton = new JButton("Save Doctor Information");
         saveButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 int doctorID = Integer.parseInt(doctorIDField.getText());
                 String expertise = expertiseField.getText();
 
-                // Create a new ozu_cs202_project.Doctor instance with the additional information
                 Doctor newDoctor = new Doctor(connection, newUser.getUserID(), newUser.getEmail(),
                         newUser.getFirstName(), newUser.getLastName(), newUser.getPassword(),
                         newUser.getUserType(), doctorID, expertise);
 
-                // Add the user and doctor details to the database
+
                 newDoctor.addUser(newDoctor);
                 newDoctor.addDoctorDetailsToDB();
 
-                // Optionally, you can display a success message or update the UI
-                JOptionPane.showMessageDialog(doctorFrame, "ozu_cs202_project.Doctor information saved successfully!");
 
-                // Close the ozu_cs202_project.Doctor screen
+                JOptionPane.showMessageDialog(doctorFrame, "Doctor information saved successfully!");
+
+
                 doctorFrame.dispose();
             }
         });
@@ -151,7 +146,7 @@ public class UserGUI extends JFrame {
     }
 
     private void openPatientScreen(User newUser) {
-        JFrame patientFrame = new JFrame("ozu_cs202_project.Patient Information");
+        JFrame patientFrame = new JFrame("Patient Information");
         patientFrame.setSize(400, 300);
         patientFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
@@ -161,12 +156,12 @@ public class UserGUI extends JFrame {
         JTextField patientIDField = new JTextField();
         JTextField medicalHistoryField = new JTextField();
 
-        patientPanel.add(new JLabel("ozu_cs202_project.Patient ID:"));
+        patientPanel.add(new JLabel("Patient ID:"));
         patientPanel.add(patientIDField);
         patientPanel.add(new JLabel("Medical History:"));
         patientPanel.add(medicalHistoryField);
 
-        JButton saveButton = new JButton("Save ozu_cs202_project.Patient Information");
+        JButton saveButton = new JButton("Save Patient Information");
         saveButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -178,13 +173,10 @@ public class UserGUI extends JFrame {
                         newUser.getFirstName(), newUser.getLastName(), newUser.getPassword(),
                         newUser.getUserType(), patientID, medicalHistory);
 
-                // Add the user details to the database
                 newPatient.addUser(newPatient);
 
-                // Optionally, you can display a success message or update the UI
-                JOptionPane.showMessageDialog(patientFrame, "ozu_cs202_project.Patient information saved successfully!");
+                JOptionPane.showMessageDialog(patientFrame, "Patient information saved successfully!");
 
-                // Close the ozu_cs202_project.Patient screen
                 patientFrame.dispose();
             }
         });
@@ -196,7 +188,7 @@ public class UserGUI extends JFrame {
     }
 
     private void openNurseScreen(User newUser) {
-        JFrame nurseFrame = new JFrame("ozu_cs202_project.Nurse Information");
+        JFrame nurseFrame = new JFrame("Nurse Information");
         nurseFrame.setSize(400, 300);
         nurseFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
@@ -206,31 +198,27 @@ public class UserGUI extends JFrame {
         JTextField nurseIDField = new JTextField();
         JTextField departmentField = new JTextField();
 
-        nursePanel.add(new JLabel("ozu_cs202_project.Nurse ID:"));
+        nursePanel.add(new JLabel("Nurse ID:"));
         nursePanel.add(nurseIDField);
         nursePanel.add(new JLabel("Department:"));
         nursePanel.add(departmentField);
 
-        JButton saveButton = new JButton("Save ozu_cs202_project.Nurse Information");
+        JButton saveButton = new JButton("Save Nurse Information");
         saveButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 int nurseID = Integer.parseInt(nurseIDField.getText());
                 String department = departmentField.getText();
 
-                // Create a new ozu_cs202_project.Nurse instance with the additional information
                 Nurse newNurse = new Nurse(connection, newUser.getUserID(), newUser.getEmail(),
                         newUser.getFirstName(), newUser.getLastName(), newUser.getPassword(),
                         newUser.getUserType(), nurseID, department);
 
-                // Add the user and nurse details to the database
                 newNurse.addUser(newNurse);
                 newNurse.addNurseDetailsToDB();
 
-                // Optionally, you can display a success message or update the UI
-                JOptionPane.showMessageDialog(nurseFrame, "ozu_cs202_project.Nurse information saved successfully!");
+                JOptionPane.showMessageDialog(nurseFrame, "Nurse information saved successfully!");
 
-                // Close the ozu_cs202_project.Nurse screen
                 nurseFrame.dispose();
             }
         });

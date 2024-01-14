@@ -16,7 +16,7 @@ public class PatientGUI extends JFrame {
     private JButton cancelAppointmentButton;
 
     public PatientGUI(Patient patient) {
-        super("ozu_cs202_project.Patient Screen");
+        super("Patient Screen");
         this.patient = patient;
 
         initializeComponents();
@@ -24,10 +24,10 @@ public class PatientGUI extends JFrame {
 
     private void initializeComponents() {
         searchDoctorsButton = new JButton("Search Doctors by Expertise");
-        filterAppointmentsButton = new JButton("Filter Appointments by ozu_cs202_project.Doctor Expertise");
+        filterAppointmentsButton = new JButton("Filter Appointments by Doctor Expertise");
         searchDoctorsByAvailabilityButton = new JButton("Search Doctors by Availability");
-        bookAppointmentButton = new JButton("Book ozu_cs202_project.Appointment");
-        cancelAppointmentButton = new JButton("Cancel ozu_cs202_project.Appointment");
+        bookAppointmentButton = new JButton("Book Appointment");
+        cancelAppointmentButton = new JButton("Cancel Appointment");
 
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
@@ -127,17 +127,16 @@ public class PatientGUI extends JFrame {
             public void run() {
                 // Example usage
                 Patient patient = new Patient(
-                        123, // Replace with the actual user ID
-                        "patient@example.com", // Replace with the actual email
-                        "Jane", // Replace with the actual first name
-                        "Doe", // Replace with the actual last name
-                        "patient_password", // Replace with the actual password
-                        "ozu_cs202_project.Patient", // Assuming the user type is ozu_cs202_project.Patient
-                        789, // Replace with the actual patient ID
-                        "Heart condition" // Replace with the actual medical history
+                        123,
+                        "patient@example.com",
+                        "Jane",
+                        "Doe",
+                        "patient_password",
+                        "Patient",
+                        789,
+                        "Heart condition"
                 );
 
-                // Pass the ozu_cs202_project.Patient object to the ozu_cs202_project.PatientGUI constructor
                 PatientGUI patientGUI = new PatientGUI(patient);
                 patientGUI.setVisible(true);
             }

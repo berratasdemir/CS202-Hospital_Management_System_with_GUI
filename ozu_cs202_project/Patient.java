@@ -1,3 +1,8 @@
+package ozu_cs202_project;
+
+import ozu_cs202_project.Appointment;
+import ozu_cs202_project.Doctor;
+
 import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -33,7 +38,7 @@ public class Patient extends User {
     public void addPatientDetailsToDB() {
         String url = "jdbc:mysql://localhost:3306/cs202project";
         String user = "root";
-        String password = "B89.e637"; // Replace with your database password
+        String password = "B89.e637";
 
         try (Connection connection = DriverManager.getConnection(url, user, password)) {
             if (connection != null) {
@@ -46,13 +51,13 @@ public class Patient extends User {
                     preparedStatement.executeUpdate();
                     System.out.println("Patient details added to the database!");
                 } catch (SQLException e) {
-                    e.printStackTrace(); // Handle the exception appropriately
+                    e.printStackTrace();
                 }
             } else {
                 System.out.println("Failed to make a connection!");
             }
         } catch (SQLException e) {
-            e.printStackTrace(); // Handle the exception appropriately
+            e.printStackTrace();
         }
     }
 
@@ -72,14 +77,11 @@ public class Patient extends User {
                 String lastName = rs.getString("LastName");
                 String password = rs.getString("Password");
                 String userType = rs.getString("UserType");
-
-                // Create the Doctor object with retrieved details
                 Doctor doctor = new Doctor(conn, userID, email, firstName, lastName, password, userType, doctorID, expertise);
                 doctors.add(doctor);
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            // Handle the exception as required
         }
         return doctors;
     }
@@ -98,8 +100,6 @@ public class Patient extends User {
                 LocalDateTime dateTime = timestamp.toLocalDateTime();
                 String status = rs.getString("Status");
                 int doctorID = rs.getInt("DoctorID");
-
-                // Create the Appointment object and set details
                 Appointment appointment = new Appointment(appointmentID, dateTime, status);
                 appointment.setDoctorID(doctorID);
 
@@ -107,7 +107,6 @@ public class Patient extends User {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            // Handle the exception as required
         }
         return filteredAppointments;
     }
@@ -129,24 +128,21 @@ public class Patient extends User {
                 int doctorID = rs.getInt("DoctorID");
                 String expertise = rs.getString("expertise");
                 int userID = rs.getInt("UserID");
-                String email = rs.getString("Email"); // Assuming the column name in your database is "Email"
-                String firstName = rs.getString("FirstName"); // Replace with the actual column name
-                String lastName = rs.getString("LastName"); // Replace with the actual column name
-                String password = rs.getString("Password"); // Replace with the actual column name
-                String userType = rs.getString("UserType"); // Replace with the actual column name
+                String email = rs.getString("Email");
+                String firstName = rs.getString("FirstName");
+                String lastName = rs.getString("LastName");
+                String password = rs.getString("Password");
+                String userType = rs.getString("UserType");
 
-// Create the Doctor object with retrieved details
                 Doctor doctor = new Doctor(conn, userID, email, firstName, lastName, password, userType, doctorID, expertise);
                 doctors.add(doctor);
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            // Handle the exception as required
         }
         return doctors;
     }
 
-    // Book an appointment for a patient
     public void bookAppointment(int appointmentID) {
         try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/cs202project", "root", "B89.e637");
              PreparedStatement stmt = conn.prepareStatement("UPDATE Appointment SET Status = 'Booked' WHERE AppointmentID = ?")) {
@@ -155,19 +151,15 @@ public class Patient extends User {
             int rowsAffected = stmt.executeUpdate();
 
             if (rowsAffected > 0) {
-                // Successfully booked appointment, you may want to update the UI or perform additional actions
                 System.out.println("Appointment booked successfully!");
             } else {
-                // Appointment update failed, handle accordingly
                 System.out.println("Failed to book appointment. Please try again.");
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            // Handle the exception as required
         }
     }
 
-    // Cancel an appointment for a patient if there are more than 24 hours left
     public void cancelAppointment(int appointmentID) {
         try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/cs202project", "root", "B89.e637");
              PreparedStatement stmt = conn.prepareStatement("SELECT DateTime FROM Appointment WHERE AppointmentID = ?")) {
@@ -180,30 +172,25 @@ public class Patient extends User {
                 long hoursDifference = timeDifferenceMillis / (60 * 60 * 1000);
 
                 if (hoursDifference > 24) {
-                    // More than 24 hours left, proceed with cancellation
                     try (PreparedStatement cancelStmt = conn.prepareStatement("UPDATE Appointment SET Status = 'Cancelled' WHERE AppointmentID = ?")) {
                         cancelStmt.setInt(1, appointmentID);
                         int cancelRowsAffected = cancelStmt.executeUpdate();
 
                         if (cancelRowsAffected > 0) {
-                            // Successfully cancelled appointment, you may want to update the UI or perform additional actions
                             System.out.println("Appointment cancelled successfully!");
                         } else {
-                            // Cancellation update failed, handle accordingly
                             System.out.println("Failed to cancel appointment. Please try again.");
                         }
                     }
                 } else {
-                    // Less than or equal to 24 hours left, cannot cancel
+
                     System.out.println("Cannot cancel appointment. Less than 24 hours left.");
                 }
             } else {
-                // Appointment not found, handle accordingly
                 System.out.println("Appointment not found.");
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            // Handle the exception as required
         }
     }
 

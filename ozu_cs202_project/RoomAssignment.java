@@ -43,9 +43,9 @@ public class RoomAssignment {
             preparedStatement.setBoolean(2, this.availability);
 
             preparedStatement.executeUpdate();
-            System.out.println("ozu_cs202_project.Room assignment details added to the database!");
+            System.out.println("Room assignment details added to the database!");
         } catch (SQLException e) {
-            e.printStackTrace(); // Handle the exception appropriately
+            e.printStackTrace();
         }
     }
     public void updateInDatabase(Connection connection) {
@@ -56,14 +56,13 @@ public class RoomAssignment {
             preparedStatement.setInt(2, this.roomAssignmentID);
 
             preparedStatement.executeUpdate();
-            System.out.println("ozu_cs202_project.Room assignment details updated in the database!");
+            System.out.println("Room assignment details updated in the database!");
         } catch (SQLException e) {
-            e.printStackTrace(); // Handle the exception appropriately
+            e.printStackTrace();
         }
     }
 
-    // Method to retrieve room assignment details by ID from the database
-    public static RoomAssignment getByIdFromDatabase(Connection connection, int roomAssignmentID) {
+     public static RoomAssignment getByIdFromDatabase(Connection connection, int roomAssignmentID) {
         String sql = "SELECT * FROM RoomAssignment WHERE RoomAssignmentID = ?";
         RoomAssignment roomAssignment = null;
 
@@ -76,13 +75,13 @@ public class RoomAssignment {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace(); // Handle the exception appropriately
+            e.printStackTrace();
         }
 
         return roomAssignment;
     }
 
-    // Method to retrieve all room assignment details from the database
+
     public static List<RoomAssignment> getAllFromDatabase(Connection connection) {
         String sql = "SELECT * FROM RoomAssignment";
         List<RoomAssignment> roomAssignments = new ArrayList<>();
@@ -94,13 +93,13 @@ public class RoomAssignment {
                 roomAssignments.add(roomAssignment);
             }
         } catch (SQLException e) {
-            e.printStackTrace(); // Handle the exception appropriately
+            e.printStackTrace();
         }
 
         return roomAssignments;
     }
 
-    // Method to extract room assignment details from a ResultSet
+
     private static RoomAssignment extractRoomAssignmentFromResultSet(ResultSet resultSet) throws SQLException {
         int roomAssignmentID = resultSet.getInt("RoomAssignmentID");
         boolean availability = resultSet.getBoolean("Availability");

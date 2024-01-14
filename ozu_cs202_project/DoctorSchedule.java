@@ -95,7 +95,7 @@ public class DoctorSchedule {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            // Handle the exception as required
+
         }
     }
 

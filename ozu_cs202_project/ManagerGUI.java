@@ -15,10 +15,10 @@ public class ManagerGUI extends JFrame {
         setSize(400, 300);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        JButton viewPatientStatsButton = new JButton("View ozu_cs202_project.Patient Statistics");
-        JButton viewAppointmentRoomStatsButton = new JButton("View ozu_cs202_project.Appointment ozu_cs202_project.Room Statistics");
-        JButton viewNurseAssignmentRatiosButton = new JButton("View ozu_cs202_project.Nurse Assignment Ratios");
-        JButton viewMostBookedStatsButton = new JButton("View Most Booked ozu_cs202_project.Room and ozu_cs202_project.Doctor Statistics");
+        JButton viewPatientStatsButton = new JButton("View Patient Statistics");
+        JButton viewAppointmentRoomStatsButton = new JButton("View Appointment Room Statistics");
+        JButton viewNurseAssignmentRatiosButton = new JButton("View Nurse Assignment Ratios");
+        JButton viewMostBookedStatsButton = new JButton("View Most Booked Room and Doctor Statistics");
 
         setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
         add(viewPatientStatsButton);
@@ -29,36 +29,32 @@ public class ManagerGUI extends JFrame {
         viewPatientStatsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Implement logic to display patient statistics
-                // manager.viewPatientStatistics();
-                JOptionPane.showMessageDialog(null, "View ozu_cs202_project.Patient Statistics clicked");
+
+                JOptionPane.showMessageDialog(null, "View Patient Statistics clicked");
             }
         });
 
         viewAppointmentRoomStatsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Implement logic to display appointment room statistics
-                // manager.viewAppointmentRoomStatistics();
-                JOptionPane.showMessageDialog(null, "View ozu_cs202_project.Appointment ozu_cs202_project.Room Statistics clicked");
+
+                JOptionPane.showMessageDialog(null, "View Appointment Room Statistics clicked");
             }
         });
 
         viewNurseAssignmentRatiosButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Implement logic to display nurse assignment ratios
-                // manager.viewNurseAssignmentRatios();
-                JOptionPane.showMessageDialog(null, "View ozu_cs202_project.Nurse Assignment Ratios clicked");
+
+                JOptionPane.showMessageDialog(null, "View Nurse Assignment Ratios clicked");
             }
         });
 
         viewMostBookedStatsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Implement logic to display most booked room and doctor statistics
-                // manager.viewMostBookedRoomAndDoctorStatistics();
-                JOptionPane.showMessageDialog(null, "View Most Booked ozu_cs202_project.Room and ozu_cs202_project.Doctor Statistics clicked");
+
+                JOptionPane.showMessageDialog(null, "View Most Booked Room and Doctor Statistics clicked");
             }
         });
     }

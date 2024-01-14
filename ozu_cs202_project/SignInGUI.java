@@ -64,7 +64,6 @@ public class SignInGUI extends JFrame {
             JOptionPane.showMessageDialog(this, "Invalid username or password. Please try again.", "Error", JOptionPane.ERROR_MESSAGE);
         }
 
-        // Clear the password field after checking
         passwordField.setText("");
     }
 
@@ -85,7 +84,7 @@ public class SignInGUI extends JFrame {
                 frame = new PatientGUI((Patient) user);
                 break;
             default:
-                frame = new JFrame("Unknown ozu_cs202_project.User Type");
+                frame = new JFrame("Unknown User Type");
                 break;
         }
 
@@ -94,7 +93,6 @@ public class SignInGUI extends JFrame {
         frame.setSize(800, 600);
         frame.setVisible(true);
 
-        // Close the sign-in window
         this.dispose();
     }
 
@@ -114,7 +112,6 @@ public class SignInGUI extends JFrame {
             return DriverManager.getConnection(url, user, password);
         } catch (SQLException e) {
             e.printStackTrace();
-            // Handle the exception as needed
             return null;
         }
     }

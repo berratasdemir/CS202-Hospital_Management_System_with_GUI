@@ -51,7 +51,6 @@ public class Appointment {
         this.doctorID = doctorID;
     }
 
-    // Method to add a new appointment
     public void addAppointment(Appointment appointment) {
         String sql = "INSERT INTO Appointment (AppointmentID, DateTime, Status) VALUES (?, ?, ?)";
 
@@ -66,7 +65,6 @@ public class Appointment {
         }
     }
 
-    // Method to retrieve an appointment by ID
     public Appointment getAppointmentByID(int appointmentID) {
         String sql = "SELECT * FROM Appointment WHERE AppointmentID = ?";
         Appointment appointment = null;
@@ -86,7 +84,6 @@ public class Appointment {
         return appointment;
     }
 
-    // Method to retrieve all appointments
     public List<Appointment> getAllAppointments() {
         String sql = "SELECT * FROM Appointment";
         List<Appointment> appointmentList = new ArrayList<>();
@@ -104,7 +101,6 @@ public class Appointment {
         return appointmentList;
     }
 
-    // Method to update appointment information
     public void updateAppointment(Appointment appointment) {
         String sql = "UPDATE Appointment SET DateTime=?, Status=? WHERE AppointmentID = ?";
 
@@ -120,8 +116,6 @@ public class Appointment {
     }
 
 
-
-    // Method to delete an appointment by ID
     public void deleteAppointment(int appointmentID) {
         String sql = "DELETE FROM Appointment WHERE AppointmentID = ?";
 
@@ -133,7 +127,6 @@ public class Appointment {
         }
     }
 
-    // Private method to extract appointment information from ResultSet
     private Appointment extractAppointmentFromResultSet(ResultSet resultSet) throws SQLException {
         return new Appointment(
                 resultSet.getInt("AppointmentID"),
@@ -143,7 +136,4 @@ public class Appointment {
     }
 
 
-
-
-    // Getter and Setter methods (similar to your existing code)
 }

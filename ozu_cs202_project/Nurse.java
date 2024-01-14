@@ -21,31 +21,23 @@ public class Nurse extends User {
     public static void main(String[] args) {
         String url = "jdbc:mysql://localhost:3306/cs202project";
         String user = "root";
-        String password = "B89.e637"; // Change this to your actual database password
+        String password = "B89.e637";
 
         try (Connection connection = DriverManager.getConnection(url, user, password)) {
             if (connection != null) {
                 System.out.println("Connected to the database!");
 
-                // Creating a ozu_cs202_project.Nurse instance for testing
                 Nurse nurse = new Nurse(
-                        connection, 7, "farni2@creativecommons.org", "Kalli", "Beauvais", "yJ6%ttezw#", "ozu_cs202_project.Nurse",
+                        connection, 7, "farni2@creativecommons.org", "Kalli", "Beauvais", "yJ6%ttezw#", "Nurse",
                         7, "Pediatrics" // ozu_cs202_project.Nurse-specific attributes
                 );
 
-               /* // Adding the user details using the inherited addUser method
-                nurse.addUser(nurse);
-                nurse.addNurseDetailsToDB();*/
-
-                // Testing viewUpcomingAssignedRooms method
                 List<Room> assignedRooms = nurse.viewUpcomingAssignedRooms();
 
-                System.out.println("Upcoming Assigned Rooms for ozu_cs202_project.Nurse:");
+                System.out.println("Upcoming Assigned Rooms for Nurse:");
                 for (Room room : assignedRooms) {
-                    System.out.println("ozu_cs202_project.Room ID: " + room.getRoomID() + ", ozu_cs202_project.Room Type: " + room.getRoomType());
+                    System.out.println("Room ID: " + room.getRoomID() + ", Room Type: " + room.getRoomType());
                 }
-
-                // Other methods of ozu_cs202_project.Nurse can be tested similarly
 
             } else {
                 System.out.println("Failed to make a connection!");
@@ -58,7 +50,7 @@ public class Nurse extends User {
     public void addNurseDetailsToDB() {
         String url = "jdbc:mysql://localhost:3306/cs202project";
         String user = "root";
-        String password = "B89.e637"; // Replace with your database password
+        String password = "B89.e637";
 
         try (Connection connection = DriverManager.getConnection(url, user, password)) {
             if (connection != null) {
@@ -66,18 +58,17 @@ public class Nurse extends User {
                 try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
                     preparedStatement.setInt(1, this.nurseID);
                     preparedStatement.setString(2, this.department);
-                    preparedStatement.setInt(3, this.getUserID()); // Assuming getUserID() method exists in the ozu_cs202_project.User class
-
+                    preparedStatement.setInt(3, this.getUserID());
                     preparedStatement.executeUpdate();
-                    System.out.println("ozu_cs202_project.Nurse details added to the database!");
+                    System.out.println("Nurse details added to the database!");
                 } catch (SQLException e) {
-                    e.printStackTrace(); // Handle the exception appropriately
+                    e.printStackTrace();
                 }
             } else {
                 System.out.println("Failed to make a connection!");
             }
         } catch (SQLException e) {
-            e.printStackTrace(); // Handle the exception appropriately
+            e.printStackTrace();
         }
     }
 
@@ -97,7 +88,6 @@ public class Nurse extends User {
         this.department = department;
     }
 
-    // Method to view room availability without patient information
     public List<Room> viewRoomAvailability() {
         List<Room> availableRooms = new ArrayList<>();
         try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/cs202project", "root", "B89.e637")) {
@@ -115,12 +105,11 @@ public class Nurse extends User {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            // Handle exceptions appropriately
+
         }
         return availableRooms;
     }
 
-    // Method to view upcoming assigned rooms without patient information
     public List<Room> viewUpcomingAssignedRooms() {
         List<Room> assignedRooms = new ArrayList<>();
         try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/cs202project", "root", "B89.e637")) {
@@ -133,14 +122,13 @@ public class Nurse extends User {
                     "AND Appointment.DateTime > ?"; // Parameterized query
 
             try (PreparedStatement stmt = conn.prepareStatement(sql)) {
-                stmt.setInt(1, this.nurseID); // Assuming nurseID is accessible within the ozu_cs202_project.Nurse object
+                stmt.setInt(1, this.nurseID);
 
-                // Get the current date and time in Java
                 LocalDateTime currentDateTime = LocalDateTime.now();
-                // Convert LocalDateTime to java.sql.Timestamp for SQL query
+
                 Timestamp timestamp = Timestamp.valueOf(currentDateTime);
 
-                stmt.setTimestamp(2, timestamp); // Set the current timestamp as a parameter
+                stmt.setTimestamp(2, timestamp);
 
                 ResultSet rs = stmt.executeQuery();
                 while (rs.next()) {
@@ -154,7 +142,7 @@ public class Nurse extends User {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            // Handle exceptions appropriately
+
         }
         return assignedRooms;
     }

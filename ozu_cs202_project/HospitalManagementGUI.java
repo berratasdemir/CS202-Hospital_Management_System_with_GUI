@@ -26,7 +26,6 @@ public class HospitalManagementGUI extends JFrame {
         add(patientButton);
         add(nurseButton);
 
-        // Add action listeners to buttons
         adminButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

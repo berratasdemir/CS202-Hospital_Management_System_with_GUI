@@ -165,15 +165,12 @@ public class DoctorGUI extends JFrame {
     private void openSignUpWindow() {
         // Implement logic to open the sign-up window
         // You may need to create a new JFrame for signing up
-        // For simplicity, I'm showing a message dialog
         JOptionPane.showMessageDialog(this, "Sign Up clicked. Implement your logic here.");
     }
 
     public static void main(String[] args) {
-        // Create an instance of ozu_cs202_project.DoctorGUI with a null ozu_cs202_project.Doctor object
         DoctorGUI doctorGUI = new DoctorGUI(null);
 
-        // Set default close operation and size (replace it with your actual requirements)
         doctorGUI.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         doctorGUI.setSize(400, 300);
 

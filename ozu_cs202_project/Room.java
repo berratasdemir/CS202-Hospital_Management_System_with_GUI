@@ -45,11 +45,9 @@ public class Room {
 
     @Override
     public String toString() {
-        return "ozu_cs202_project.Room ID: " + roomID + ", ozu_cs202_project.Room Type: " + roomType + ", Availability: " + (availability ? "Available" : "Not Available");
+        return "Room ID: " + roomID + ",Room Type: " + roomType + ", Availability: " + (availability ? "Available" : "Not Available");
     }
 
-
-    // Method to save room details to the database
     public void saveToDatabase(Connection connection) {
         String sql = "INSERT INTO Room (RoomID, RoomType, Availability) VALUES (?, ?, ?)";
 
@@ -59,13 +57,12 @@ public class Room {
             preparedStatement.setBoolean(3, this.availability);
 
             preparedStatement.executeUpdate();
-            System.out.println("ozu_cs202_project.Room details added to the database!");
+            System.out.println("Room details added to the database!");
         } catch (SQLException e) {
-            e.printStackTrace(); // Handle the exception appropriately
+            e.printStackTrace();
         }
     }
 
-    // Method to update room details in the database
     public void updateInDatabase(Connection connection) {
         String sql = "UPDATE Room SET RoomType=?, Availability=? WHERE RoomID = ?";
 
@@ -75,13 +72,12 @@ public class Room {
             preparedStatement.setInt(3, this.roomID);
 
             preparedStatement.executeUpdate();
-            System.out.println("ozu_cs202_project.Room details updated in the database!");
+            System.out.println("Room details updated in the database!");
         } catch (SQLException e) {
-            e.printStackTrace(); // Handle the exception appropriately
+            e.printStackTrace();
         }
     }
 
-    // Method to delete room from the database by RoomID
     public void deleteFromDatabase(Connection connection) {
         String sql = "DELETE FROM Room WHERE RoomID = ?";
 
@@ -89,13 +85,12 @@ public class Room {
             preparedStatement.setInt(1, this.roomID);
 
             preparedStatement.executeUpdate();
-            System.out.println("ozu_cs202_project.Room deleted from the database!");
+            System.out.println("Room deleted from the database!");
         } catch (SQLException e) {
-            e.printStackTrace(); // Handle the exception appropriately
+            e.printStackTrace();
         }
     }
 
-    // Method to get a list of all rooms from the database
     public static List<Room> getAllRooms(Connection connection) {
         String sql = "SELECT * FROM Room";
         List<Room> roomList = new ArrayList<>();
@@ -111,13 +106,12 @@ public class Room {
                 roomList.add(room);
             }
         } catch (SQLException e) {
-            e.printStackTrace(); // Handle the exception appropriately
+            e.printStackTrace();
         }
 
         return roomList;
     }
 
-    // Method to get a list of available rooms from the database
     public static List<Room> getAvailableRooms(Connection connection) {
         String sql = "SELECT * FROM Room WHERE Availability = true";
         List<Room> availableRooms = new ArrayList<>();
@@ -133,7 +127,7 @@ public class Room {
                 availableRooms.add(room);
             }
         } catch (SQLException e) {
-            e.printStackTrace(); // Handle the exception appropriately
+            e.printStackTrace();
         }
 
         return availableRooms;
