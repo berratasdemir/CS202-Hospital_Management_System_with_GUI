@@ -111,7 +111,7 @@ public class UserGUI extends JFrame {
         JTextField doctorIDField = new JTextField();
         JTextField expertiseField = new JTextField();
 
-        doctorPanel.add(new JLabel("Doctor ID:"));
+        doctorPanel.add(new JLabel("Doctor ID: (needs to be the same with the userID added)"));
         doctorPanel.add(doctorIDField);
         doctorPanel.add(new JLabel("Expertise:"));
         doctorPanel.add(expertiseField);
@@ -156,7 +156,7 @@ public class UserGUI extends JFrame {
         JTextField patientIDField = new JTextField();
         JTextField medicalHistoryField = new JTextField();
 
-        patientPanel.add(new JLabel("Patient ID:"));
+        patientPanel.add(new JLabel("Patient ID: (needs to be the same with the userID added)"));
         patientPanel.add(patientIDField);
         patientPanel.add(new JLabel("Medical History:"));
         patientPanel.add(medicalHistoryField);
@@ -198,7 +198,7 @@ public class UserGUI extends JFrame {
         JTextField nurseIDField = new JTextField();
         JTextField departmentField = new JTextField();
 
-        nursePanel.add(new JLabel("Nurse ID:"));
+        nursePanel.add(new JLabel("Nurse ID: (needs to be the same with the userID added)"));
         nursePanel.add(nurseIDField);
         nursePanel.add(new JLabel("Department:"));
         nursePanel.add(departmentField);
