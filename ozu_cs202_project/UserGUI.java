@@ -44,7 +44,7 @@ public class UserGUI extends JFrame {
         add(new JLabel("User Type:"));
         add(userTypeField);
 
-        JButton addUserButton = new JButton("Add ozu_cs202_project.User");
+        JButton addUserButton = new JButton("Add User");
         addUserButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
