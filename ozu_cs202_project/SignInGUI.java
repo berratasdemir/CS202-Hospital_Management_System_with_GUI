@@ -71,16 +71,16 @@ public class SignInGUI extends JFrame {
         JFrame frame;
 
         switch (userType) {
-            case "ozu_cs202_project.Nurse":
+            case "Nurse":
                 frame = new NurseGUI((Nurse) user);
                 break;
-            case "ozu_cs202_project.Doctor":
+            case "Doctor":
                 frame = new DoctorGUI((Doctor) user);
                 break;
-            case "ozu_cs202_project.Manager":
+            case "Manager":
                 frame = new ManagerGUI();
                 break;
-            case "ozu_cs202_project.Patient":
+            case "Patient":
                 frame = new PatientGUI((Patient) user);
                 break;
             default:
